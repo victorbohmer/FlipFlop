@@ -1,0 +1,275 @@
+﻿<Window x:Class="FlipFlop.Interface_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlipFlop.Interface_WPF"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="600">
+    <Window.Resources>
+
+        <System:Int16 x:Key="myStr">16</System:Int16>
+
+        <BitmapImage x:Key="card back" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/card back.png"/>
+        <BitmapImage x:Key="1 of diamonds" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/1 of diamonds.png"/>
+        <BitmapImage x:Key="2 of diamonds" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/2 of diamonds.png"/>
+        <BitmapImage x:Key="3 of diamonds" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/3 of diamonds.png"/>
+        <BitmapImage x:Key="4 of diamonds" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/4 of diamonds.png"/>
+        <BitmapImage x:Key="5 of diamonds" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/5 of diamonds.png"/>
+        <BitmapImage x:Key="6 of diamonds" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/6 of diamonds.png"/>
+        <BitmapImage x:Key="7 of diamonds" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/7 of diamonds.png"/>
+        <BitmapImage x:Key="8 of diamonds" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/8 of diamonds.png"/>
+        <BitmapImage x:Key="9 of diamonds" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/9 of diamonds.png"/>
+        <BitmapImage x:Key="10 of diamonds" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/10 of diamonds.png"/>
+        <BitmapImage x:Key="11 of diamonds" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/11 of diamonds.png"/>
+        <BitmapImage x:Key="12 of diamonds" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/12 of diamonds.png"/>
+        <BitmapImage x:Key="13 of diamonds" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/13 of diamonds.png"/>
+        <BitmapImage x:Key="1 of clubs" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/1 of clubs.png"/>
+        <BitmapImage x:Key="2 of clubs" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/2 of clubs.png"/>
+        <BitmapImage x:Key="3 of clubs" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/3 of clubs.png"/>
+        <BitmapImage x:Key="4 of clubs" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/4 of clubs.png"/>
+        <BitmapImage x:Key="5 of clubs" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/5 of clubs.png"/>
+        <BitmapImage x:Key="6 of clubs" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/6 of clubs.png"/>
+        <BitmapImage x:Key="7 of clubs" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/7 of clubs.png"/>
+        <BitmapImage x:Key="8 of clubs" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/8 of clubs.png"/>
+        <BitmapImage x:Key="9 of clubs" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/9 of clubs.png"/>
+        <BitmapImage x:Key="10 of clubs" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/10 of clubs.png"/>
+        <BitmapImage x:Key="11 of clubs" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/11 of clubs.png"/>
+        <BitmapImage x:Key="12 of clubs" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/12 of clubs.png"/>
+        <BitmapImage x:Key="13 of clubs" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/13 of clubs.png"/>
+        <BitmapImage x:Key="1 of spades" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/1 of spades.png"/>
+        <BitmapImage x:Key="2 of spades" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/2 of spades.png"/>
+        <BitmapImage x:Key="3 of spades" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/3 of spades.png"/>
+        <BitmapImage x:Key="4 of spades" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/4 of spades.png"/>
+        <BitmapImage x:Key="5 of spades" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/5 of spades.png"/>
+        <BitmapImage x:Key="6 of spades" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/6 of spades.png"/>
+        <BitmapImage x:Key="7 of spades" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/7 of spades.png"/>
+        <BitmapImage x:Key="8 of spades" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/8 of spades.png"/>
+        <BitmapImage x:Key="9 of spades" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/9 of spades.png"/>
+        <BitmapImage x:Key="10 of spades" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/10 of spades.png"/>
+        <BitmapImage x:Key="11 of spades" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/11 of spades.png"/>
+        <BitmapImage x:Key="12 of spades" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/12 of spades.png"/>
+        <BitmapImage x:Key="13 of spades" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/13 of spades.png"/>
+        <BitmapImage x:Key="1 of hearts" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/1 of hearts.png"/>
+        <BitmapImage x:Key="2 of hearts" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/2 of hearts.png"/>
+        <BitmapImage x:Key="3 of hearts" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/3 of hearts.png"/>
+        <BitmapImage x:Key="4 of hearts" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/4 of hearts.png"/>
+        <BitmapImage x:Key="5 of hearts" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/5 of hearts.png"/>
+        <BitmapImage x:Key="6 of hearts" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/6 of hearts.png"/>
+        <BitmapImage x:Key="7 of hearts" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/7 of hearts.png"/>
+        <BitmapImage x:Key="8 of hearts" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/8 of hearts.png"/>
+        <BitmapImage x:Key="9 of hearts" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/9 of hearts.png"/>
+        <BitmapImage x:Key="10 of hearts" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/10 of hearts.png"/>
+        <BitmapImage x:Key="11 of hearts" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/11 of hearts.png"/>
+        <BitmapImage x:Key="12 of hearts" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/12 of hearts.png"/>
+        <BitmapImage x:Key="13 of hearts" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/13 of hearts.png"/>
+
+
+
+    </Window.Resources>
+    <Grid Background="LightSkyBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="96" />
+            <ColumnDefinition Width="16" />
+            <ColumnDefinition Width="96" />
+            <ColumnDefinition Width="16" />
+            <ColumnDefinition Width="96" />
+            <ColumnDefinition Width="16" />
+            <ColumnDefinition Width="96" />
+            <ColumnDefinition Width="16" />
+            <ColumnDefinition Width="96" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="48" />
+            <RowDefinition Height="96" />
+            <RowDefinition Height="48" />
+            <RowDefinition Height="16" />
+            <RowDefinition Height="96" />
+            <RowDefinition Height="16" />
+            <RowDefinition Height="96" />
+            <RowDefinition Height="16" />
+            <RowDefinition Height="96" />
+            <RowDefinition Height="16" />
+            <RowDefinition Height="48" />
+            <RowDefinition Height="96" />
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+
+        <TextBlock Text="Player 1" FontSize="24" TextAlignment="Center" VerticalAlignment="Top" 
+                   Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="5"/>
+        <Button x:Name="Player_1_Card_1" Grid.Column="1" Grid.Row="2" Background="AliceBlue" Click="PlayerCardClick">
+            <Image x:Name="Player_1_Card_1_Image" Source="{StaticResource card back}" />
+        </Button>
+        <Button x:Name="Player_1_Card_2" Grid.Column="3" Grid.Row="2" Background="AliceBlue" Click="PlayerCardClick">
+            <Image x:Name="Player_1_Card_2_Image" Source="{StaticResource card back}" />
+        </Button>
+        <Button x:Name="Player_1_Card_3" Grid.Column="5" Grid.Row="2" Background="AliceBlue" Click="PlayerCardClick">
+            <Image x:Name="Player_1_Card_3_Image" Source="{StaticResource card back}" />
+        </Button>
+        <Button x:Name="Player_1_Card_4" Grid.Column="7" Grid.Row="2" Background="AliceBlue" Click="PlayerCardClick">
+            <Image x:Name="Player_1_Card_4_Image" Source="{StaticResource card back}" />
+        </Button>
+        <Button x:Name="Player_1_Card_5" Grid.Column="9" Grid.Row="2" Background="AliceBlue" Click="PlayerCardClick">
+            <Image x:Name="Player_1_Card_5_Image" Source="{StaticResource card back}" />
+        </Button>
+
+        <TextBlock Grid.Column="2" Grid.ColumnSpan="7"
+                   Grid.Row="4" Grid.RowSpan="7"
+                   Background="Navy" />
+
+        <Button x:Name="Played_Card_1_1" Grid.Column="3" Grid.Row="5" Background="MidnightBlue" 
+                Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
+            <Image x:Name="Played_Card_1_1_Image" />
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="0"/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button x:Name="Played_Card_1_2" Grid.Column="5" Grid.Row="5" Background="MidnightBlue" 
+                Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
+            <Image x:Name="Played_Card_1_2_Image" />
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="0"/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button x:Name="Played_Card_1_3" Grid.Column="7" Grid.Row="5" Background="MidnightBlue"
+                Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
+            <Image x:Name="Played_Card_1_3_Image" />
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="0"/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button x:Name="Played_Card_2_1" Grid.Column="3" Grid.Row="7" Background="MidnightBlue"
+                Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
+            <Image x:Name="Played_Card_2_1_Image" />
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="0"/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button x:Name="Played_Card_2_2" Grid.Column="5" Grid.Row="7" Background="MidnightBlue"
+                Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
+            <Image x:Name="Played_Card_2_2_Image" />
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="0"/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button x:Name="Played_Card_2_3" Grid.Column="7" Grid.Row="7" Background="MidnightBlue"
+                Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
+            <Image x:Name="Played_Card_2_3_Image" />
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="0"/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button x:Name="Played_Card_3_1" Grid.Column="3" Grid.Row="9" Background="MidnightBlue"
+                Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
+            <Image x:Name="Played_Card_3_1_Image" />
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="0"/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button x:Name="Played_Card_3_2" Grid.Column="5" Grid.Row="9" Background="MidnightBlue"
+                Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
+            <Image x:Name="Played_Card_3_2_Image" />
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="0"/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button x:Name="Played_Card_3_3" Grid.Column="7" Grid.Row="9" Background="MidnightBlue"
+                Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
+            <Image x:Name="Played_Card_3_3_Image" />
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="0"/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+
+
+        <Button x:Name="Player_2_Card_1" Grid.Column="1" Grid.Row="12" Background="AliceBlue" 
+                Click="PlayerCardClick" RenderTransformOrigin="0.5,0.5" >
+            <Image x:Name="Player_2_Card_1_Image" Source="{StaticResource card back}" />
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button x:Name="Player_2_Card_2" Grid.Column="3" Grid.Row="12" Background="AliceBlue" 
+                Click="PlayerCardClick" RenderTransformOrigin="0.5,0.5" >
+            <Image x:Name="Player_2_Card_2_Image" Source="{StaticResource card back}" />
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button x:Name="Player_2_Card_3" Grid.Column="5" Grid.Row="12" Background="AliceBlue" 
+                Click="PlayerCardClick" RenderTransformOrigin="0.5,0.5" >
+            <Image x:Name="Player_2_Card_3_Image" Source="{StaticResource card back}" />
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button x:Name="Player_2_Card_4" Grid.Column="7" Grid.Row="12" Background="AliceBlue"
+                Click="PlayerCardClick" RenderTransformOrigin="0.5,0.5" >
+            <Image x:Name="Player_2_Card_4_Image" Source="{StaticResource card back}" />
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button x:Name="Player_2_Card_5" Grid.Column="9" Grid.Row="12" Background="AliceBlue"
+                Click="PlayerCardClick" RenderTransformOrigin="0.5,0.5" >
+            <Image x:Name="Player_2_Card_5_Image" Source="{StaticResource card back}" />
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+
+        <TextBlock Text="Player 2" FontSize="24" TextAlignment="Center" VerticalAlignment="Bottom" 
+                   Grid.Row="13" Grid.Column="3" Grid.ColumnSpan="5"/>
+
+
+    </Grid>
+</Window>
