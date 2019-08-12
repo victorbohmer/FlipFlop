@@ -1,0 +1,21 @@
+# folders
+
+bin
+obj
+packages
+.vs
+.vscode
+GameDemo1/.vs
+GameDemo1/obj
+
+# files
+
+*.user
+*.suo
+*.log
+*.dll
+*.pdb
+
+# specific files
+
+project.lock.json
