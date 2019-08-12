@@ -32,7 +32,7 @@ namespace FlipFlop.Interface_WPF
 
         private void KeyPressed(object sender, KeyEventArgs e)
         {
-            var keyPressed = e.Key;
+            Key keyPressed = e.Key;
 
             switch (keyPressed)
             {
@@ -89,6 +89,22 @@ namespace FlipFlop.Interface_WPF
             }
         }
 
+        internal void ShowNewGamePopup(int score)
+        {
+            NewGamePopupText.Text = $"Player {EI.ActivePlayer} controlled {5 + (score - 1) / 2} spaces and got {score} points!";
+
+            NewGamePopup.IsOpen = true;
+            NewGamePopup.VerticalOffset = EI.ActivePlayer == 1 ? -268 : 268;
+        }
+
+        internal void ShowNextRoundPopup()
+        {
+            NextRoundPopupText.Content = $"Player {EI.ActivePlayer}'s turn!";
+
+            NextRoundPopup.VerticalOffset = EI.ActivePlayer == 1 ? -268 : 268;
+            NextRoundPopup.IsOpen = true;
+        }
+
         private void TryNextRound()
         {
             if (NextRoundPopup.IsOpen)
@@ -105,6 +121,15 @@ namespace FlipFlop.Interface_WPF
                 string spaceName = $"Played_Card_{yPosition}_{xPosition}";
                 EI.PlayCard((Button)FindName(spaceName), SelectedCard);
             }
+        }
+
+        internal void ShowMatchEndPopup()
+        {
+            TextBlock playerScoreBox = (TextBlock)FindName($"Player_{EI.ActivePlayer}_Score");
+            string playerPoints = playerScoreBox.Text;
+
+            MatchEndPopupText.Text = $"Player {EI.ActivePlayer} won with {playerPoints} points!";
+            MatchEndPopup.IsOpen = true;
         }
 
         private void SetSelectedCardByKey(int cardIndex)

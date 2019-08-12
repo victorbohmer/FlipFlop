@@ -70,14 +70,9 @@ namespace FlipFlop.Interface_WPF
         private void NewRound()
         {
             HideHand();
-
-            Button nextRoundPopupText = (Button)MainWindow.FindName("NextRoundPopupText");
             ActivePlayer = ActivePlayer == 1 ? 2 : 1;
-            nextRoundPopupText.Content = $"Player {ActivePlayer}'s turn!";
+            MainWindow.ShowNextRoundPopup();
 
-            Popup nextRoundPopup = (Popup)MainWindow.FindName("NextRoundPopup");
-            nextRoundPopup.VerticalOffset = ActivePlayer == 1 ? -268 : 268;
-            nextRoundPopup.IsOpen = true;
         }
 
         private void GameEnd()
@@ -96,10 +91,10 @@ namespace FlipFlop.Interface_WPF
             Engine.ShuffleBackIntoDeck();
             AddScore(score);
             if (Engine.EnoughCardsLeft())
-                ShowEndGamePopup(score);
+                MainWindow.ShowNewGamePopup(score);
             else
-                MatchEnd();
-            
+                MainWindow.ShowMatchEndPopup();
+
         }
 
         private void ClearBoard()
@@ -114,29 +109,6 @@ namespace FlipFlop.Interface_WPF
 
             }
         }
-
-        private void MatchEnd()
-        {
-            TextBlock playerScoreBox = (TextBlock)MainWindow.FindName($"Player_{ActivePlayer}_Score");
-            string playerPoints = playerScoreBox.Text;
-
-            TextBlock matchEndPopupText = (TextBlock)MainWindow.FindName("MatchEndPopupText");
-            matchEndPopupText.Text = $"Player {ActivePlayer} won with {playerPoints} points!";
-
-            Popup matchEndPopup = (Popup)MainWindow.FindName("MatchEndPopup");
-            matchEndPopup.IsOpen = true;
-        }
-
-        private void ShowEndGamePopup(int score)
-        {
-            TextBlock newGamePopupText = (TextBlock)MainWindow.FindName("NewGamePopupText");
-            newGamePopupText.Text = $"Player {ActivePlayer} controlled {5 + (score - 1) / 2} spaces and got {score} points! There are {Engine.CardsLeft()} cards left to play for.";
-
-            Popup newGamePopup = (Popup)MainWindow.FindName("NewGamePopup");
-            newGamePopup.IsOpen = true;
-            newGamePopup.VerticalOffset = ActivePlayer == 1 ? -268 : 268;
-        }
-
         public void SetupNewGame()
         {
             ClearBoard();
@@ -163,8 +135,6 @@ namespace FlipFlop.Interface_WPF
                         score--;
                     else
                         score++;
-
-                    //MainWindow.GetImage(space).Source = null;
                 }
 
             }
@@ -205,7 +175,6 @@ namespace FlipFlop.Interface_WPF
             RotateCard(clickedSpace);
 
             TryToFlipFlopNeighbours(clickedSpace);
-
         }
 
         private void RotateCard(Button clickedSpace)
