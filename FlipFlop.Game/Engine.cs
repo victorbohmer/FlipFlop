@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 
 namespace FlipFlop.Game
 {
@@ -10,11 +9,11 @@ namespace FlipFlop.Game
         Deck Deck = new Deck();
         Player Player1 = new Player();
         Player Player2 = new Player();
+        List<Card> PlayedCards = new List<Card>();
+        Random random = new Random();
         public string Peek()
         {
-
             return Deck.GetRandomCard().ToString();
-
         }
 
         public void DrawNewHands()
@@ -37,18 +36,7 @@ namespace FlipFlop.Game
 
         public List<string> GetCardNames(int playerIndex)
         {
-            Player player = new Player();
-            switch (playerIndex)
-            {
-                case 1:
-                    player = Player1;
-                    break;
-                case 2:
-                    player = Player2;
-                    break;
-                default:
-                    break;
-            }
+            Player player = playerIndex == 1 ? Player1 : Player2;
 
             return player.Hand.Select(x => x.ToString()).ToList();
 
@@ -61,6 +49,42 @@ namespace FlipFlop.Game
                 Deck.CardList.Add(card);
                 player.Hand.Remove(card);
             }
+        }
+
+        public void PlayCard(string cardName, int activePlayerId)
+        {
+            Player activePlayer = activePlayerId == 1 ? Player1 : Player2;
+
+            Card playedCard = activePlayer.Hand.Single(x => x.ToString() == cardName);
+
+            PlayedCards.Add(playedCard);
+            activePlayer.Hand.Remove(playedCard);
+
+        }
+
+        public int CardsLeft()
+        {
+            return Deck.CardList.Count();
+        }
+
+        public void RemovePlayedCards(int numberOfCardsToRemove)
+        {
+            for (int i = 0; i < numberOfCardsToRemove; i++)
+            {
+                PlayedCards.RemoveAt(random.Next(PlayedCards.Count));
+            }
+        }
+
+        public void ShuffleBackIntoDeck()
+        {
+
+            Deck.CardList.AddRange(PlayedCards);
+            PlayedCards = new List<Card>();
+        }
+
+        public bool EnoughCardsLeft()
+        {
+            return Deck.CardList.Count >= 26;
         }
     }
 }

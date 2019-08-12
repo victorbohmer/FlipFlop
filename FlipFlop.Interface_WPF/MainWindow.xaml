@@ -6,10 +6,16 @@
         xmlns:local="clr-namespace:FlipFlop.Interface_WPF"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="600">
+        KeyDown="KeyPressed"
+        Title="FlipFlop" Height="800" Width="600" FontSize="20">
     <Window.Resources>
 
-        <System:Int16 x:Key="myStr">16</System:Int16>
+        <SolidColorBrush x:Key="Background" Color="#8BDFE6" />
+        <SolidColorBrush x:Key="BackgroundDark" Color="#77CBD2" />
+        <SolidColorBrush x:Key="Grid" Color="#5D82C7" />
+        <SolidColorBrush x:Key="GridDark" Color="#23427A" />
+        <SolidColorBrush x:Key="Popup" Color="#FFD02D" />
+        <SolidColorBrush x:Key="PopupDark" Color="#F1BC19" />
 
         <BitmapImage x:Key="card back" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/card back.png"/>
         <BitmapImage x:Key="1 of diamonds" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/1 of diamonds.png"/>
@@ -68,7 +74,7 @@
 
 
     </Window.Resources>
-    <Grid Background="LightSkyBlue">
+    <Grid Background="{StaticResource Background}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="96" />
@@ -86,7 +92,8 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="48" />
             <RowDefinition Height="96" />
-            <RowDefinition Height="48" />
+            <RowDefinition Height="24" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="16" />
             <RowDefinition Height="96" />
             <RowDefinition Height="16" />
@@ -94,36 +101,67 @@
             <RowDefinition Height="16" />
             <RowDefinition Height="96" />
             <RowDefinition Height="16" />
-            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="24" />
             <RowDefinition Height="96" />
             <RowDefinition Height="48" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
 
-        <TextBlock Text="Player 1" FontSize="24" TextAlignment="Center" VerticalAlignment="Top" 
+        <Popup Name="NextRoundPopup" Width="200" Height="100" IsOpen="True" Placement="Center" VerticalOffset="-268">
+            <Button Name="NextRoundPopupText" Background="{StaticResource Popup}" FontSize="24" Click="NextRoundClick" >  
+                Player 1's turn
+            </Button>
+        </Popup>
+
+        <Popup Name="NewGamePopup" Width="300" Height="100" IsOpen="False" Placement="Center" VerticalOffset="-268">
+            <Button Background="{StaticResource Popup}" FontSize="24" Click="NewGameClick">
+                <TextBlock Name="NewGamePopupText" Text="Player 1 controlled 9 spaces and got 9 points!" TextWrapping="Wrap" TextAlignment="Center"/>
+            </Button>
+        </Popup>
+
+        <Popup Name="MatchEndPopup" Width="400" Height="200" IsOpen="False" Placement="Center">
+            <Button Background="{StaticResource PopupDark}" FontSize="48">
+                <TextBlock Name="MatchEndPopupText" Text="Player 1 controlled 9 spaces and got 9 points!" TextWrapping="Wrap" TextAlignment="Center"/>
+            </Button>
+        </Popup>
+
+        <TextBlock Text="Player 1" FontSize="24" TextAlignment="Center" VerticalAlignment="Center" 
                    Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="5"/>
-        <Button x:Name="Player_1_Card_1" Grid.Column="1" Grid.Row="2" Background="AliceBlue" Click="PlayerCardClick">
+        <Image Source="{StaticResource card back}"
+               Grid.Row="1" Grid.Column="7" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="90"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <TextBlock x:Name="Player_1_Score" Text="0" FontSize="24" TextAlignment="Center" VerticalAlignment="Center" 
+                   Grid.Row="1" Grid.Column="7"/>
+        
+        
+        <Button x:Name="Player_1_Card_1" Grid.Column="1" Grid.Row="2" Background="{StaticResource BackgroundDark}" Click="PlayerCardClick">
             <Image x:Name="Player_1_Card_1_Image" Source="{StaticResource card back}" />
         </Button>
-        <Button x:Name="Player_1_Card_2" Grid.Column="3" Grid.Row="2" Background="AliceBlue" Click="PlayerCardClick">
+        <Button x:Name="Player_1_Card_2" Grid.Column="3" Grid.Row="2" Background="{StaticResource BackgroundDark}" Click="PlayerCardClick">
             <Image x:Name="Player_1_Card_2_Image" Source="{StaticResource card back}" />
         </Button>
-        <Button x:Name="Player_1_Card_3" Grid.Column="5" Grid.Row="2" Background="AliceBlue" Click="PlayerCardClick">
+        <Button x:Name="Player_1_Card_3" Grid.Column="5" Grid.Row="2" Background="{StaticResource BackgroundDark}" Click="PlayerCardClick">
             <Image x:Name="Player_1_Card_3_Image" Source="{StaticResource card back}" />
         </Button>
-        <Button x:Name="Player_1_Card_4" Grid.Column="7" Grid.Row="2" Background="AliceBlue" Click="PlayerCardClick">
+        <Button x:Name="Player_1_Card_4" Grid.Column="7" Grid.Row="2" Background="{StaticResource BackgroundDark}" Click="PlayerCardClick">
             <Image x:Name="Player_1_Card_4_Image" Source="{StaticResource card back}" />
         </Button>
-        <Button x:Name="Player_1_Card_5" Grid.Column="9" Grid.Row="2" Background="AliceBlue" Click="PlayerCardClick">
+        <Button x:Name="Player_1_Card_5" Grid.Column="9" Grid.Row="2" Background="{StaticResource BackgroundDark}" Click="PlayerCardClick">
             <Image x:Name="Player_1_Card_5_Image" Source="{StaticResource card back}" />
         </Button>
 
         <TextBlock Grid.Column="2" Grid.ColumnSpan="7"
-                   Grid.Row="4" Grid.RowSpan="7"
-                   Background="Navy" />
+                   Grid.Row="5" Grid.RowSpan="7"
+                   Background="{StaticResource GridDark}" />
 
-        <Button x:Name="Played_Card_1_1" Grid.Column="3" Grid.Row="5" Background="MidnightBlue" 
+        <Button x:Name="Played_Card_1_1" Grid.Column="3" Grid.Row="6" Background="{StaticResource Grid}" 
                 Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
             <Image x:Name="Played_Card_1_1_Image" />
             <Button.RenderTransform>
@@ -132,7 +170,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Played_Card_1_2" Grid.Column="5" Grid.Row="5" Background="MidnightBlue" 
+        <Button x:Name="Played_Card_1_2" Grid.Column="5" Grid.Row="6" Background="{StaticResource Grid}" 
                 Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
             <Image x:Name="Played_Card_1_2_Image" />
             <Button.RenderTransform>
@@ -141,7 +179,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Played_Card_1_3" Grid.Column="7" Grid.Row="5" Background="MidnightBlue"
+        <Button x:Name="Played_Card_1_3" Grid.Column="7" Grid.Row="6" Background="{StaticResource Grid}"
                 Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
             <Image x:Name="Played_Card_1_3_Image" />
             <Button.RenderTransform>
@@ -150,7 +188,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Played_Card_2_1" Grid.Column="3" Grid.Row="7" Background="MidnightBlue"
+        <Button x:Name="Played_Card_2_1" Grid.Column="3" Grid.Row="8" Background="{StaticResource Grid}"
                 Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
             <Image x:Name="Played_Card_2_1_Image" />
             <Button.RenderTransform>
@@ -159,7 +197,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Played_Card_2_2" Grid.Column="5" Grid.Row="7" Background="MidnightBlue"
+        <Button x:Name="Played_Card_2_2" Grid.Column="5" Grid.Row="8" Background="{StaticResource Grid}"
                 Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
             <Image x:Name="Played_Card_2_2_Image" />
             <Button.RenderTransform>
@@ -168,7 +206,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Played_Card_2_3" Grid.Column="7" Grid.Row="7" Background="MidnightBlue"
+        <Button x:Name="Played_Card_2_3" Grid.Column="7" Grid.Row="8" Background="{StaticResource Grid}"
                 Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
             <Image x:Name="Played_Card_2_3_Image" />
             <Button.RenderTransform>
@@ -177,7 +215,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Played_Card_3_1" Grid.Column="3" Grid.Row="9" Background="MidnightBlue"
+        <Button x:Name="Played_Card_3_1" Grid.Column="3" Grid.Row="10" Background="{StaticResource Grid}"
                 Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
             <Image x:Name="Played_Card_3_1_Image" />
             <Button.RenderTransform>
@@ -186,7 +224,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Played_Card_3_2" Grid.Column="5" Grid.Row="9" Background="MidnightBlue"
+        <Button x:Name="Played_Card_3_2" Grid.Column="5" Grid.Row="10" Background="{StaticResource Grid}"
                 Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
             <Image x:Name="Played_Card_3_2_Image" />
             <Button.RenderTransform>
@@ -195,7 +233,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Played_Card_3_3" Grid.Column="7" Grid.Row="9" Background="MidnightBlue"
+        <Button x:Name="Played_Card_3_3" Grid.Column="7" Grid.Row="10" Background="{StaticResource Grid}"
                 Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
             <Image x:Name="Played_Card_3_3_Image" />
             <Button.RenderTransform>
@@ -206,7 +244,7 @@
         </Button>
 
 
-        <Button x:Name="Player_2_Card_1" Grid.Column="1" Grid.Row="12" Background="AliceBlue" 
+        <Button x:Name="Player_2_Card_1" Grid.Column="1" Grid.Row="14" Background="{StaticResource BackgroundDark}" 
                 Click="PlayerCardClick" RenderTransformOrigin="0.5,0.5" >
             <Image x:Name="Player_2_Card_1_Image" Source="{StaticResource card back}" />
             <Button.RenderTransform>
@@ -218,7 +256,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Player_2_Card_2" Grid.Column="3" Grid.Row="12" Background="AliceBlue" 
+        <Button x:Name="Player_2_Card_2" Grid.Column="3" Grid.Row="14" Background="{StaticResource BackgroundDark}" 
                 Click="PlayerCardClick" RenderTransformOrigin="0.5,0.5" >
             <Image x:Name="Player_2_Card_2_Image" Source="{StaticResource card back}" />
             <Button.RenderTransform>
@@ -230,7 +268,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Player_2_Card_3" Grid.Column="5" Grid.Row="12" Background="AliceBlue" 
+        <Button x:Name="Player_2_Card_3" Grid.Column="5" Grid.Row="14" Background="{StaticResource BackgroundDark}" 
                 Click="PlayerCardClick" RenderTransformOrigin="0.5,0.5" >
             <Image x:Name="Player_2_Card_3_Image" Source="{StaticResource card back}" />
             <Button.RenderTransform>
@@ -242,7 +280,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Player_2_Card_4" Grid.Column="7" Grid.Row="12" Background="AliceBlue"
+        <Button x:Name="Player_2_Card_4" Grid.Column="7" Grid.Row="14" Background="{StaticResource BackgroundDark}"
                 Click="PlayerCardClick" RenderTransformOrigin="0.5,0.5" >
             <Image x:Name="Player_2_Card_4_Image" Source="{StaticResource card back}" />
             <Button.RenderTransform>
@@ -254,7 +292,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Player_2_Card_5" Grid.Column="9" Grid.Row="12" Background="AliceBlue"
+        <Button x:Name="Player_2_Card_5" Grid.Column="9" Grid.Row="14" Background="{StaticResource BackgroundDark}"
                 Click="PlayerCardClick" RenderTransformOrigin="0.5,0.5" >
             <Image x:Name="Player_2_Card_5_Image" Source="{StaticResource card back}" />
             <Button.RenderTransform>
@@ -267,9 +305,18 @@
             </Button.RenderTransform>
         </Button>
 
-        <TextBlock Text="Player 2" FontSize="24" TextAlignment="Center" VerticalAlignment="Bottom" 
-                   Grid.Row="13" Grid.Column="3" Grid.ColumnSpan="5"/>
-
+        <TextBlock Text="Player 2" FontSize="24" TextAlignment="Center" VerticalAlignment="Center" 
+                   Grid.Row="15" Grid.Column="3" Grid.ColumnSpan="5"/>
+        <Image Source="{StaticResource card back}"
+               Grid.Row="15" Grid.Column="7" RenderTransformOrigin="0.5,0.5">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="90"/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <TextBlock x:Name="Player_2_Score" Text="0" FontSize="24" TextAlignment="Center" VerticalAlignment="Center" 
+                   Grid.Row="15" Grid.Column="7"/>
 
     </Grid>
 </Window>
