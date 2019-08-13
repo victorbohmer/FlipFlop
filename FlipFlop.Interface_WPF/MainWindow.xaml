@@ -243,7 +243,14 @@
             </Button.RenderTransform>
         </Button>
 
-        
+
+        <Image Source="{StaticResource card back}"
+               Grid.Row="8" Grid.Column="9" RenderTransformOrigin="0.5,0.5">
+        </Image>
+        <TextBlock x:Name="Deck_Size" Text="0" FontSize="40" TextAlignment="Center" VerticalAlignment="Center" 
+                   Grid.Row="8" Grid.Column="9"/>
+
+
         <Button x:Name="Player_2_Card_1" Grid.Column="1" Grid.Row="14" Background="{StaticResource BackgroundDark}" 
                 Click="PlayerCardClick" RenderTransformOrigin="0.5,0.5" >
             <Image x:Name="Player_2_Card_1_Image" Source="{StaticResource card back}" />

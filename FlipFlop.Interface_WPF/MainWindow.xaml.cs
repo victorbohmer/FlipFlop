@@ -53,8 +53,6 @@ namespace FlipFlop.Interface_WPF
             }
         }
 
-        
-
         private void NextRoundClick(object sender, RoutedEventArgs e)
         {
             NextRoundPopup.IsOpen = false;
@@ -124,6 +122,10 @@ namespace FlipFlop.Interface_WPF
         {
             TextBlock scoreBox = (TextBlock)FindName($"Player_{GE.ActivePlayer.Id}_Score");
             scoreBox.Text = GE.ActivePlayer.Score.ToString();
+        }
+        internal void UpdateDeckSize(int count)
+        {
+            Deck_Size.Text = count.ToString();
         }
         internal void SetBackgroundColorDark(PlayerCard selectedCard)
         {

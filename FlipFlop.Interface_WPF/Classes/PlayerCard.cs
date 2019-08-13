@@ -39,7 +39,10 @@ namespace FlipFlop.Interface_WPF.Classes
         {
             WPFImage.Source = NoCardImage;
         }
-        
 
+        internal bool CanBeSelected()
+        {
+            return WPFImage.Source != NoCardImage;
+        }
     }
 }

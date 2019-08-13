@@ -7,12 +7,13 @@ namespace FlipFlop.Interface_WPF
 {
     class GameEngine
     {
-        Deck Deck = new Deck();
-        List<Player> Players;
-        PlayerCard SelectedCard;
         MainWindow MainWindow;
-        public Board Board { get; set; }
+
+        List<Player> Players;
         public Player ActivePlayer;
+        Deck Deck = new Deck();
+        PlayerCard SelectedCard;
+        public Board Board { get; set; }
         
         public GameEngine (MainWindow mainWindow)
         {
@@ -24,6 +25,7 @@ namespace FlipFlop.Interface_WPF
         internal void SetupFirstGame()
         {
             Players.ForEach(x => x.DrawNewHand());
+            MainWindow.UpdateDeckSize(Deck.CardList.Count);
             ActivePlayer = Players[0];
         }
 
@@ -40,13 +42,18 @@ namespace FlipFlop.Interface_WPF
         {
             ActivePlayer.HideHand();
         }
-        public void SelectPlayerCard(string selectedCard)
+        public void SelectPlayerCard(string clickedCardName)
         {
             if (SelectedCard != null)
                 DeselectPlayerCard();
-      
-            SelectedCard = ActivePlayer.Hand.Single(x => x.Name == selectedCard);
-            MainWindow.SetBackgroundColorDark(SelectedCard);
+
+            PlayerCard clickedCard = ActivePlayer.Hand.Single(x => x.Name == clickedCardName);
+            if (clickedCard.CanBeSelected())
+            {
+                SelectedCard = clickedCard;
+                MainWindow.SetBackgroundColorDark(SelectedCard);
+            }
+
         }
 
         public void DeselectPlayerCard()
@@ -114,6 +121,7 @@ namespace FlipFlop.Interface_WPF
             Board.Discard();
             Board.Clear();
             Players.ForEach(x => x.DrawNewHand());
+            MainWindow.UpdateDeckSize(Deck.CardList.Count);
             NewRound();
         }
 
