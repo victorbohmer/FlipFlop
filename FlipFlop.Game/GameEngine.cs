@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace FlipFlop.Game
 {
-    public class Engine
+    public class GameEngine
     {
-        Deck Deck = new Deck();
-        Player Player1 = new Player();
-        Player Player2 = new Player();
-        List<Card> PlayedCards = new List<Card>();
-        Random random = new Random();
+        
         public string Peek()
         {
             return Deck.GetRandomCard().ToString();
@@ -18,12 +20,11 @@ namespace FlipFlop.Game
 
         public void DrawNewHands()
         {
-            foreach (Player player in new[] { Player1, Player2 })
+            foreach (Player player in Players)
             {
                 ClearHand(player);
                 DrawToFull(player);
             }
-
         }
 
         private void DrawToFull(Player player)
@@ -36,7 +37,7 @@ namespace FlipFlop.Game
 
         public List<string> GetCardNames(int playerIndex)
         {
-            Player player = playerIndex == 1 ? Player1 : Player2;
+            Player player = Players[playerIndex - 1];
 
             return player.Hand.Select(x => x.ToString()).ToList();
 
@@ -53,7 +54,7 @@ namespace FlipFlop.Game
 
         public void PlayCard(string cardName, int activePlayerId)
         {
-            Player activePlayer = activePlayerId == 1 ? Player1 : Player2;
+            Player activePlayer = Players[activePlayerId-1];
 
             Card playedCard = activePlayer.Hand.Single(x => x.ToString() == cardName);
 

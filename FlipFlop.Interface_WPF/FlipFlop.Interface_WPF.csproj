@@ -55,6 +55,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\Board.cs" />
+    <Compile Include="Classes\BoardSpace.cs" />
+    <Compile Include="Classes\CardSpace.cs" />
+    <Compile Include="Enums\Direction.cs" />
+    <Compile Include="Classes\PlayerCard.cs" />
+    <Compile Include="Enums\Suit.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,13 +69,16 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="EngineInterface.cs" />
+    <Compile Include="Classes\Card.cs" />
+    <Compile Include="Classes\Deck.cs" />
+    <Compile Include="GameEngine.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -255,12 +264,6 @@
     <Resource Include="Cards\card back.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\FlipFlop.Game\FlipFlop.Game.csproj">
-      <Project>{f429f607-7e71-4c8a-82ee-993fefd78d15}</Project>
-      <Name>FlipFlop.Game</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

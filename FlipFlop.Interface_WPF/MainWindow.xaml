@@ -161,81 +161,81 @@
                    Grid.Row="5" Grid.RowSpan="7"
                    Background="{StaticResource GridDark}" />
 
-        <Button x:Name="Played_Card_1_1" Grid.Column="3" Grid.Row="6" Background="{StaticResource Grid}" 
+        <Button x:Name="Played_Card_1" Grid.Column="3" Grid.Row="10" Background="{StaticResource Grid}"
                 Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
-            <Image x:Name="Played_Card_1_1_Image" />
+            <Image x:Name="Played_Card_1_Image" />
             <Button.RenderTransform>
                 <TransformGroup>
                     <RotateTransform Angle="0"/>
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Played_Card_1_2" Grid.Column="5" Grid.Row="6" Background="{StaticResource Grid}" 
+        <Button x:Name="Played_Card_2" Grid.Column="5" Grid.Row="10" Background="{StaticResource Grid}"
                 Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
-            <Image x:Name="Played_Card_1_2_Image" />
+            <Image x:Name="Played_Card_2_Image" />
             <Button.RenderTransform>
                 <TransformGroup>
                     <RotateTransform Angle="0"/>
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Played_Card_1_3" Grid.Column="7" Grid.Row="6" Background="{StaticResource Grid}"
+        <Button x:Name="Played_Card_3" Grid.Column="7" Grid.Row="10" Background="{StaticResource Grid}"
                 Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
-            <Image x:Name="Played_Card_1_3_Image" />
+            <Image x:Name="Played_Card_3_Image" />
             <Button.RenderTransform>
                 <TransformGroup>
                     <RotateTransform Angle="0"/>
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Played_Card_2_1" Grid.Column="3" Grid.Row="8" Background="{StaticResource Grid}"
+        <Button x:Name="Played_Card_4" Grid.Column="3" Grid.Row="8" Background="{StaticResource Grid}"
                 Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
-            <Image x:Name="Played_Card_2_1_Image" />
+            <Image x:Name="Played_Card_4_Image" />
             <Button.RenderTransform>
                 <TransformGroup>
                     <RotateTransform Angle="0"/>
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Played_Card_2_2" Grid.Column="5" Grid.Row="8" Background="{StaticResource Grid}"
+        <Button x:Name="Played_Card_5" Grid.Column="5" Grid.Row="8" Background="{StaticResource Grid}"
                 Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
-            <Image x:Name="Played_Card_2_2_Image" />
+            <Image x:Name="Played_Card_5_Image" />
             <Button.RenderTransform>
                 <TransformGroup>
                     <RotateTransform Angle="0"/>
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Played_Card_2_3" Grid.Column="7" Grid.Row="8" Background="{StaticResource Grid}"
+        <Button x:Name="Played_Card_6" Grid.Column="7" Grid.Row="8" Background="{StaticResource Grid}"
                 Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
-            <Image x:Name="Played_Card_2_3_Image" />
+            <Image x:Name="Played_Card_6_Image" />
             <Button.RenderTransform>
                 <TransformGroup>
                     <RotateTransform Angle="0"/>
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Played_Card_3_1" Grid.Column="3" Grid.Row="10" Background="{StaticResource Grid}"
+        <Button x:Name="Played_Card_7" Grid.Column="3" Grid.Row="6" Background="{StaticResource Grid}" 
                 Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
-            <Image x:Name="Played_Card_3_1_Image" />
+            <Image x:Name="Played_Card_7_Image" />
             <Button.RenderTransform>
                 <TransformGroup>
                     <RotateTransform Angle="0"/>
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Played_Card_3_2" Grid.Column="5" Grid.Row="10" Background="{StaticResource Grid}"
+        <Button x:Name="Played_Card_8" Grid.Column="5" Grid.Row="6" Background="{StaticResource Grid}" 
                 Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
-            <Image x:Name="Played_Card_3_2_Image" />
+            <Image x:Name="Played_Card_8_Image" />
             <Button.RenderTransform>
                 <TransformGroup>
                     <RotateTransform Angle="0"/>
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="Played_Card_3_3" Grid.Column="7" Grid.Row="10" Background="{StaticResource Grid}"
+        <Button x:Name="Played_Card_9" Grid.Column="7" Grid.Row="6" Background="{StaticResource Grid}"
                 Click="BoardSpaceClick" RenderTransformOrigin="0.5,0.5">
-            <Image x:Name="Played_Card_3_3_Image" />
+            <Image x:Name="Played_Card_9_Image" />
             <Button.RenderTransform>
                 <TransformGroup>
                     <RotateTransform Angle="0"/>
@@ -243,7 +243,7 @@
             </Button.RenderTransform>
         </Button>
 
-
+        
         <Button x:Name="Player_2_Card_1" Grid.Column="1" Grid.Row="14" Background="{StaticResource BackgroundDark}" 
                 Click="PlayerCardClick" RenderTransformOrigin="0.5,0.5" >
             <Image x:Name="Player_2_Card_1_Image" Source="{StaticResource card back}" />

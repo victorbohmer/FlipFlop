@@ -1,5 +1,4 @@
-﻿using FlipFlop.Game;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using FlipFlop.Interface_WPF.Classes;
 
 namespace FlipFlop.Interface_WPF
 {
@@ -22,12 +22,12 @@ namespace FlipFlop.Interface_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        EngineInterface EI = new EngineInterface();
-        Button SelectedCard;
+        GameEngine GE;
         public MainWindow()
         {
             InitializeComponent();
-            EI.SetupFirstGame(this);
+            GE = new GameEngine(this);
+            GE.SetupFirstGame();
         }
 
         private void KeyPressed(object sender, KeyEventArgs e)
@@ -37,153 +37,102 @@ namespace FlipFlop.Interface_WPF
             switch (keyPressed)
             {
                 case Key.Escape:
-                    DeselectCard();
+                    GE.DeselectPlayerCard();
                     break;
                 case Key.Enter:
-                    TryNextRound();
+                    TryGoToNextRound();
                     break;
-                case Key.D1:
-                    SetSelectedCardByKey(1);
+                case Key.D1: case Key.D2: case Key.D3: case Key.D4: case Key.D5:
+                    SelectPlayerCardByKey(keyPressed.ToString()[1]);
                     break;
-                case Key.D2:
-                    SetSelectedCardByKey(2);
-                    break;
-                case Key.D3:
-                    SetSelectedCardByKey(3);
-                    break;
-                case Key.D4:
-                    SetSelectedCardByKey(4);
-                    break;
-                case Key.D5:
-                    SetSelectedCardByKey(5);
-                    break;
-                case Key.NumPad1:
-                    SelectBoardSpaceByKey(3, 1);
-                    break;
-                case Key.NumPad2:
-                    SelectBoardSpaceByKey(3, 2);
-                    break;
-                case Key.NumPad3:
-                    SelectBoardSpaceByKey(3, 3);
-                    break;
-                case Key.NumPad4:
-                    SelectBoardSpaceByKey(2, 1);
-                    break;
-                case Key.NumPad5:
-                    SelectBoardSpaceByKey(2, 2);
-                    break;
-                case Key.NumPad6:
-                    SelectBoardSpaceByKey(2, 3);
-                    break;
-                case Key.NumPad7:
-                    SelectBoardSpaceByKey(1, 1);
-                    break;
-                case Key.NumPad8:
-                    SelectBoardSpaceByKey(1, 2);
-                    break;
-                case Key.NumPad9:
-                    SelectBoardSpaceByKey(1, 3);
+                case Key.NumPad1: case Key.NumPad2: case Key.NumPad3: case Key.NumPad4: case Key.NumPad5: case Key.NumPad6: case Key.NumPad7: case Key.NumPad8: case Key.NumPad9:
+                    SelectBoardSpaceByKey(keyPressed.ToString()[6]);
                     break;
                 default:
                     break;
             }
         }
 
-        internal void ShowNewGamePopup(int score)
-        {
-            NewGamePopupText.Text = $"Player {EI.ActivePlayer} controlled {5 + (score - 1) / 2} spaces and got {score} points!";
-
-            NewGamePopup.IsOpen = true;
-            NewGamePopup.VerticalOffset = EI.ActivePlayer == 1 ? -268 : 268;
-        }
-
-        internal void ShowNextRoundPopup()
-        {
-            NextRoundPopupText.Content = $"Player {EI.ActivePlayer}'s turn!";
-
-            NextRoundPopup.VerticalOffset = EI.ActivePlayer == 1 ? -268 : 268;
-            NextRoundPopup.IsOpen = true;
-        }
-
-        private void TryNextRound()
-        {
-            if (NextRoundPopup.IsOpen)
-            {
-                NextRoundPopup.IsOpen = false;
-                EI.ShowHand();
-            }
-        }
-
-        private void SelectBoardSpaceByKey(int yPosition, int xPosition)
-        {
-            if (SelectedCard != null)
-            {
-                string spaceName = $"Played_Card_{yPosition}_{xPosition}";
-                EI.PlayCard((Button)FindName(spaceName), SelectedCard);
-            }
-        }
-
-        internal void ShowMatchEndPopup()
-        {
-            TextBlock playerScoreBox = (TextBlock)FindName($"Player_{EI.ActivePlayer}_Score");
-            string playerPoints = playerScoreBox.Text;
-
-            MatchEndPopupText.Text = $"Player {EI.ActivePlayer} won with {playerPoints} points!";
-            MatchEndPopup.IsOpen = true;
-        }
-
-        private void SetSelectedCardByKey(int cardIndex)
-        {
-            string cardName = $"Player_{EI.ActivePlayer}_Card_{cardIndex}";
-            SetSelectedCard((Button)FindName(cardName));
-        }
-
-        private void PlayerCardClick(object sender, RoutedEventArgs e)
-        {
-            SetSelectedCard((Button)sender);
-        }
-
-        private void SetSelectedCard(Button sender)
-        {
-            if (SelectedCard != null)
-            {
-                DeselectCard();
-            }
-            SelectedCard = sender;
-            SelectedCard.Background = (Brush)new BrushConverter().ConvertFrom("#5D82C7");
-        }
-
-        public void DeselectCard()
-        {
-            SelectedCard.Background = (Brush)new BrushConverter().ConvertFrom("#77CBD2");
-            SelectedCard = null;
-        }
-
-        private void BoardSpaceClick(object sender, RoutedEventArgs e)
-        {
-            if (SelectedCard != null)
-            {
-                Button clickedSpace = (Button)sender;
-                EI.PlayCard(clickedSpace, SelectedCard);
-            }
-        }
-
-        public Image GetImage(Button button)
-        {
-            return (Image)FindName(button.Name + "_Image");
-        }
+        
 
         private void NextRoundClick(object sender, RoutedEventArgs e)
         {
             NextRoundPopup.IsOpen = false;
-            EI.ShowHand();
+            GE.ShowHand();
+        }
+        private void TryGoToNextRound()
+        {
+            if (NextRoundPopup.IsOpen)
+            {
+                NextRoundPopup.IsOpen = false;
+                GE.ShowHand();
+            }
+            else if (NewGamePopup.IsOpen)
+            {
+                NewGamePopup.IsOpen = false;
+                GE.SetupNewGame();
+            }
+        }
+
+        private void PlayerCardClick(object sender, RoutedEventArgs e)
+        {
+            Button pressedButton = (Button)sender;
+            GE.SelectPlayerCard(pressedButton.Name);
+        }
+        private void SelectPlayerCardByKey(char cardIndex)
+        {
+            string cardName = $"Player_{GE.ActivePlayer.Id}_Card_{cardIndex}";
+            GE.SelectPlayerCard(cardName);
+        }
+        private void BoardSpaceClick(object sender, RoutedEventArgs e)
+        {
+            Button boardSpace = (Button)sender;
+            GE.PlayCard(boardSpace.Name);
+        }
+
+        private void SelectBoardSpaceByKey(char boardSpaceIndex)
+        {
+            string spaceName = $"Played_Card_{boardSpaceIndex}";
+            GE.PlayCard(spaceName);
         }
 
         private void NewGameClick(object sender, RoutedEventArgs e)
         {
             NewGamePopup.IsOpen = false;
-            EI.SetupNewGame();
+            GE.SetupNewGame();
+        }
+        internal void ShowNextRoundPopup()
+        {
+            NextRoundPopupText.Content = $"Player {GE.ActivePlayer.Id}'s turn!";
+
+            NextRoundPopup.VerticalOffset = GE.ActivePlayer.Id == 1 ? -268 : 268;
+            NextRoundPopup.IsOpen = true;
+        }
+        internal void ShowNewGamePopup(int score)
+        {
+            NewGamePopupText.Text = $"Player {GE.ActivePlayer.Id} controlled {GE.Board.WinnersControlledSpaces()} spaces and got {score} points!";
+
+            NewGamePopup.IsOpen = true;
+            NewGamePopup.VerticalOffset = GE.ActivePlayer.Id == 1 ? -268 : 268;
+        }
+        internal void ShowMatchEndPopup()
+        {
+            MatchEndPopupText.Text = $"Player {GE.ActivePlayer.Id} won with {GE.ActivePlayer.Score} points!";
+            MatchEndPopup.IsOpen = true;
+        }
+        public void UpdateScoreBox()
+        {
+            TextBlock scoreBox = (TextBlock)FindName($"Player_{GE.ActivePlayer.Id}_Score");
+            scoreBox.Text = GE.ActivePlayer.Score.ToString();
+        }
+        internal void SetBackgroundColorDark(PlayerCard selectedCard)
+        {
+            selectedCard.WPFButton.Background = (Brush)new BrushConverter().ConvertFrom("#5D82C7");
         }
 
+        internal void SetBackgroundColorLight(PlayerCard selectedCard)
+        {
+            selectedCard.WPFButton.Background = (Brush)new BrushConverter().ConvertFrom("#77CBD2");
+        }
     }
 }
