@@ -22,7 +22,7 @@ namespace FlipFlop.Interface_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        GameEngine GE;
+        readonly GameEngine GE;
         public MainWindow()
         {
             InitializeComponent();
@@ -42,10 +42,22 @@ namespace FlipFlop.Interface_WPF
                 case Key.Enter:
                     TryGoToNextRound();
                     break;
-                case Key.D1: case Key.D2: case Key.D3: case Key.D4: case Key.D5:
+                case Key.D1:
+                case Key.D2:
+                case Key.D3:
+                case Key.D4:
+                case Key.D5:
                     SelectPlayerCardByKey(keyPressed.ToString()[1]);
                     break;
-                case Key.NumPad1: case Key.NumPad2: case Key.NumPad3: case Key.NumPad4: case Key.NumPad5: case Key.NumPad6: case Key.NumPad7: case Key.NumPad8: case Key.NumPad9:
+                case Key.NumPad1:
+                case Key.NumPad2:
+                case Key.NumPad3:
+                case Key.NumPad4:
+                case Key.NumPad5:
+                case Key.NumPad6:
+                case Key.NumPad7:
+                case Key.NumPad8:
+                case Key.NumPad9:
                     SelectBoardSpaceByKey(keyPressed.ToString()[6]);
                     break;
                 default:
@@ -108,7 +120,7 @@ namespace FlipFlop.Interface_WPF
         }
         internal void ShowNewGamePopup(int score)
         {
-            NewGamePopupText.Text = $"Player {GE.ActivePlayer.Id} controlled {GE.Board.WinnersControlledSpaces()} spaces and got {score} points!";
+            NewGamePopupText.Text = $"Player {GE.ActivePlayer.Id} controlled {(score + 9) / 2} spaces and got {score} {(score == 1 ? "point" : "points")}!";
 
             NewGamePopup.IsOpen = true;
             NewGamePopup.VerticalOffset = GE.ActivePlayer.Id == 1 ? -268 : 268;

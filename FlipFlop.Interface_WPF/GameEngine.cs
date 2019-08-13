@@ -7,13 +7,13 @@ namespace FlipFlop.Interface_WPF
 {
     class GameEngine
     {
-        MainWindow MainWindow;
+        readonly Deck Deck = new Deck();
+        readonly MainWindow MainWindow;
+        readonly List<Player> Players;
+        readonly Board Board;
 
-        List<Player> Players;
         public Player ActivePlayer;
-        Deck Deck = new Deck();
         PlayerCard SelectedCard;
-        public Board Board { get; set; }
         
         public GameEngine (MainWindow mainWindow)
         {
