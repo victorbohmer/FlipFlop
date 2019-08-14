@@ -6,7 +6,7 @@ namespace FlipFlop.Interface_WPF.Classes
 {
     public class Deck
     {
-        Random random = new Random();
+        readonly Random random = new Random();
         public List<Card> CardList { get; set; }
 
         public Deck()

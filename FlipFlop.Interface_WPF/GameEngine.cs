@@ -13,10 +13,9 @@ namespace FlipFlop.Interface_WPF
         readonly List<Player> Players;
         readonly Board Board;
 
-        public Player ActivePlayer;
+        public Player ActivePlayer { get; private set; }
         PlayerCard SelectedCard;
-        AIPlayer AIPlayer;
-
+        readonly AIPlayer AIPlayer;
 
         public GameEngine(MainWindow mainWindow)
         {
@@ -28,7 +27,10 @@ namespace FlipFlop.Interface_WPF
 
         internal void SetupFirstGame()
         {
-            ActivePlayer = Players[1];
+            ActivePlayer = Players[0];
+            MainWindow.UpdateScoreBox();
+            SwitchActivePlayer();
+            MainWindow.UpdateScoreBox();
             SetupNewGame();
         }
         public void SetupNewGame()
@@ -54,9 +56,6 @@ namespace FlipFlop.Interface_WPF
         {
             Board.Clear();
             Board.ResetSpaceColors();
-            MainWindow.UpdateScoreBox();
-            SwitchActivePlayer();
-            MainWindow.UpdateScoreBox();
         }
 
         internal void SwitchActivePlayer()

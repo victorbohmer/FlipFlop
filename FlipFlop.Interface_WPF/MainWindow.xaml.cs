@@ -134,7 +134,7 @@ namespace FlipFlop.Interface_WPF
         {
             NextRoundPopupText.Content = $"Player {GE.ActivePlayer.Id}'s turn!";
 
-            NextRoundPopup.VerticalOffset = GE.ActivePlayer.Id == 1 ? -268 : 268;
+            NextRoundPopup.VerticalOffset = GE.ActivePlayer.Id == 1 ? -236 : 236;
             NextRoundPopup.IsOpen = true;
         }
         internal void ShowNewGamePopup(int score)
@@ -142,7 +142,7 @@ namespace FlipFlop.Interface_WPF
             NewGamePopupText.Text = $"Player {GE.ActivePlayer.Id} controlled {(score + 9) / 2} spaces and got {score} {(score == 1 ? "point" : "points")}!";
 
             NewGamePopup.IsOpen = true;
-            NewGamePopup.VerticalOffset = GE.ActivePlayer.Id == 1 ? -268 : 268;
+            NewGamePopup.VerticalOffset = GE.ActivePlayer.Id == 1 ? -236 : 236;
         }
         internal void ShowMatchEndPopup()
         {

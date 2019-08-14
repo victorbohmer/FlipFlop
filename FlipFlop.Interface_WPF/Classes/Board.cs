@@ -9,8 +9,8 @@ namespace FlipFlop.Interface_WPF.Classes
 {
     class Board
     {
-        Random random = new Random();
-        Deck Deck;
+        readonly Random random = new Random();
+        readonly Deck Deck;
         public List<BoardSpace> Spaces { get; private set; } = new List<BoardSpace>();
         public bool Full { get { return PlayedCardCount == 9; } }
         public int PlayedCardCount { get { return Spaces.Where(x => x.Card != null).Count(); } }

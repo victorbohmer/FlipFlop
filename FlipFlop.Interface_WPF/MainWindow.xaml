@@ -193,7 +193,8 @@
             </Grid>
         </Popup>
 
-        <Button Grid.Column="1" Grid.Row="8" Background="{StaticResource Background}" Click="OpenSettingsClick">
+        <Button Grid.Column="1" Grid.Row="8" Background="{StaticResource Background}" 
+                BorderBrush="{StaticResource Background}" Click="OpenSettingsClick">
             <Image  Source="{StaticResource settings}" />
         </Button>
 
