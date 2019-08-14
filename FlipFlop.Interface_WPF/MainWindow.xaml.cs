@@ -23,14 +23,19 @@ namespace FlipFlop.Interface_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        readonly GameEngine GE;
+        GameEngine GE;
         public MainWindow()
         {
             InitializeComponent();
+            WindowState = WindowState.Maximized;
             GE = new GameEngine(this);
             GE.SetupFirstGame();
         }
-
+        public void SetupNewMatch()
+        {
+            GE = new GameEngine(this);
+            GE.SetupFirstGame();
+        }
         private void KeyPressed(object sender, KeyEventArgs e)
         {
             Key keyPressed = e.Key;
@@ -66,8 +71,6 @@ namespace FlipFlop.Interface_WPF
             }
         }
 
-      
-
         private void NextRoundClick(object sender, RoutedEventArgs e)
         {
             NextRoundPopup.IsOpen = false;
@@ -100,13 +103,13 @@ namespace FlipFlop.Interface_WPF
         private void BoardSpaceClick(object sender, RoutedEventArgs e)
         {
             Button boardSpace = (Button)sender;
-            GE.PlayCard(boardSpace.Name);
+            GE.TryToPlayCard(boardSpace.Name);
         }
 
         private void SelectBoardSpaceByKey(char boardSpaceIndex)
         {
             string spaceName = $"Played_Card_{boardSpaceIndex}";
-            GE.PlayCard(spaceName);
+            GE.TryToPlayCard(spaceName);
         }
 
         private void NewGameClick(object sender, RoutedEventArgs e)
@@ -114,6 +117,18 @@ namespace FlipFlop.Interface_WPF
             NewGamePopup.IsOpen = false;
             GE.SetupNewGame();
         }
+
+        private void NewMatchClick(object sender, RoutedEventArgs e)
+        {
+            MatchEndPopup.IsOpen = false;
+            SetupNewMatch();
+        }
+
+        private void QuitClick(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
         internal void ShowNextRoundPopup()
         {
             NextRoundPopupText.Content = $"Player {GE.ActivePlayer.Id}'s turn!";
@@ -147,5 +162,41 @@ namespace FlipFlop.Interface_WPF
             button.Background = (SolidColorBrush)FindResource(color.ToString());
         }
 
+
+        //
+
+        private void OpenSettingsClick(object sender, RoutedEventArgs e)
+        {
+            SettingsPopup.IsOpen = true;
+        }
+        private void AIModeOnClick(object sender, RoutedEventArgs e)
+        {
+            SetBackgroundColor(AIModeOff, WPFColor.Background);
+            SetBackgroundColor(AIModeOn, WPFColor.BackgroundDark);
+            GameMode.AIModeOn();
+        }
+        private void AIModeOffClick(object sender, RoutedEventArgs e)
+        {
+            SetBackgroundColor(AIModeOn, WPFColor.Background);
+            SetBackgroundColor(AIModeOff, WPFColor.BackgroundDark);
+            GameMode.AIModeOff();
+        }
+        private void GameLengthShortClick(object sender, RoutedEventArgs e)
+        {
+            SetBackgroundColor(GameLengthLong, WPFColor.Background);
+            SetBackgroundColor(GameLengthShort, WPFColor.BackgroundDark);
+            GameMode.GameLengthShort();
+        }
+        private void GameLengthLongClick(object sender, RoutedEventArgs e)
+        {
+            SetBackgroundColor(GameLengthShort, WPFColor.Background);
+            SetBackgroundColor(GameLengthLong, WPFColor.BackgroundDark);
+            GameMode.GameLengthLong();
+        }
+        private void ExitSettingsClick(object sender, RoutedEventArgs e)
+        {
+            SettingsPopup.IsOpen = false;
+        }
+        
     }
 }

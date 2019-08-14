@@ -23,7 +23,7 @@ namespace FlipFlop.Interface_WPF.Classes
         
         public bool EnoughCardsLeft()
         {
-            return CardList.Count > 20;
+            return CardList.Count > GameMode.GameEndDeckSize;
         }
 
         public Card GetRandomCard()

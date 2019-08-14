@@ -55,12 +55,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AI\AIPlayer.cs" />
+    <Compile Include="AI\Aziraphale.cs" />
     <Compile Include="Classes\Board.cs" />
     <Compile Include="Classes\BoardSpace.cs" />
     <Compile Include="Classes\CardSpace.cs" />
+    <Compile Include="Classes\GameMode.cs" />
     <Compile Include="Enums\Direction.cs" />
     <Compile Include="Classes\PlayerCard.cs" />
     <Compile Include="Enums\Suit.cs" />
+    <Compile Include="SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -77,6 +83,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Player.cs" />

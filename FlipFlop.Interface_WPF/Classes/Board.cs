@@ -12,8 +12,8 @@ namespace FlipFlop.Interface_WPF.Classes
         Random random = new Random();
         Deck Deck;
         public List<BoardSpace> Spaces { get; private set; } = new List<BoardSpace>();
-        public bool Full { get { return Spaces.Where(x => x.Card != null).Count() == 9; } }
-
+        public bool Full { get { return PlayedCardCount == 9; } }
+        public int PlayedCardCount { get { return Spaces.Where(x => x.Card != null).Count(); } }
         public Board(Deck deck, MainWindow mainWindow)
         {
             Deck = deck;
@@ -67,6 +67,12 @@ namespace FlipFlop.Interface_WPF.Classes
                 FlipFlopCard(neighbouringSpace, flippedSpace.Owner);
             }
 
+        }
+
+        internal BoardSpace RandomEmptySpace()
+        {
+            List<BoardSpace> emptySpaces = Spaces.Where(x => x.Card == null).ToList();
+            return emptySpaces[random.Next(emptySpaces.Count)];
         }
 
         internal BoardSpace GetByName(string boardSpaceName)

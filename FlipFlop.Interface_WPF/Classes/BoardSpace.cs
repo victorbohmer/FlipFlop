@@ -29,7 +29,10 @@ namespace FlipFlop.Interface_WPF.Classes
         public void ReturnCard(Deck deck)
         {
             if (!IsEmpty())
+            {
+                Owner = 0;
                 deck.ReturnCard(TakeCard());
+            }
         }
 
         internal void ChangeOwner(int playerId)

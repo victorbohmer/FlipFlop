@@ -17,6 +17,8 @@
         <SolidColorBrush x:Key="Popup" Color="#FFD02D" />
         <SolidColorBrush x:Key="PopupDark" Color="#F1BC19" />
 
+        <BitmapImage x:Key="settings" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/settings.png"/>
+
         <BitmapImage x:Key="card back" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/card back.png"/>
         <BitmapImage x:Key="1 of diamonds" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/1 of diamonds.png"/>
         <BitmapImage x:Key="2 of diamonds" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/2 of diamonds.png"/>
@@ -110,7 +112,7 @@
 
 
         <Popup Name="NextRoundPopup" Width="200" Height="100" IsOpen="True" Placement="Center" VerticalOffset="-268">
-            <Button Name="NextRoundPopupText" Background="{StaticResource Popup}" FontSize="24" Click="NextRoundClick" >  
+            <Button Name="NextRoundPopupText" Background="{StaticResource Popup}" FontSize="24" Click="NextRoundClick" >
                 Player 1's turn
             </Button>
         </Popup>
@@ -121,11 +123,79 @@
             </Button>
         </Popup>
 
-        <Popup Name="MatchEndPopup" Width="400" Height="200" IsOpen="False" Placement="Center">
-            <Button Background="{StaticResource PopupDark}" FontSize="48">
-                <TextBlock Name="MatchEndPopupText" Text="Player 1 controlled 9 spaces and got 9 points!" TextWrapping="Wrap" TextAlignment="Center"/>
-            </Button>
+        <Popup Name="MatchEndPopup" Width="400" Height="300" IsOpen="False" Placement="Center">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Name="MatchEndPopupText" Background="{StaticResource PopupDark}" 
+                               Grid.ColumnSpan="2" FontSize="48" Text="Player 1 controlled 9 spaces and got 9 points!" 
+                               TextWrapping="Wrap" TextAlignment="Center"/>
+                <Button Grid.Row="1" Content="New Game"
+                    Background="{StaticResource Popup}" FontSize="30" Click="NewMatchClick" />
+                <Button Grid.Row="1" Grid.Column="1" Content="Quit"
+                    Background="{StaticResource Popup}" FontSize="30" Click="QuitClick" />
+
+            </Grid>
+
         </Popup>
+
+        <Popup Name="SettingsPopup" Width="400" Height="300" IsOpen="False" Placement="Center">
+            <Grid Background="{StaticResource GridDark}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Button Name="AIModeOn" Grid.Row="1" Grid.Column="1" Click="AIModeOnClick"
+                    Background="{StaticResource BackgroundDark}">
+                    <TextBlock TextWrapping="Wrap" Text="AI Mode
+                               On" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
+                </Button>
+                <Button Name="AIModeOff" Grid.Row="1" Grid.Column="3" Click="AIModeOffClick"
+                    Background="{StaticResource Background}">
+                    <TextBlock TextWrapping="Wrap" Text="AI Mode
+                               Off" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
+                </Button>
+                <Button Name="GameLengthShort" Grid.Row="3" Grid.Column="1" Click="GameLengthShortClick"
+                    Background="{StaticResource BackgroundDark}">
+                    <TextBlock TextWrapping="Wrap" Text="Game Length
+                               Short" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
+                </Button>
+                <Button Name="GameLengthLong" Grid.Row="3" Grid.Column="3" Click="GameLengthLongClick"
+                    Background="{StaticResource Background}">
+                    <TextBlock TextWrapping="Wrap" Text="Game Length
+                               Long" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
+                </Button>
+                <Button Grid.Row="5" Grid.Column="3" Click="ExitSettingsClick"
+                    Background="{StaticResource PopupDark}">
+                    <TextBlock TextWrapping="Wrap" Text="Exit Settings" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
+                </Button>
+
+            </Grid>
+        </Popup>
+
+        <Button Grid.Column="1" Grid.Row="8" Background="{StaticResource Background}" Click="OpenSettingsClick">
+            <Image  Source="{StaticResource settings}" />
+        </Button>
 
         <TextBlock Text="Player 1" FontSize="24" TextAlignment="Center" VerticalAlignment="Center" 
                    Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="5"/>
@@ -139,8 +209,8 @@
         </Image>
         <TextBlock x:Name="Player_1_Score" Text="0" FontSize="30" TextAlignment="Center" VerticalAlignment="Center" 
                    Grid.Row="1" Grid.Column="7"/>
-        
-        
+
+
         <Button x:Name="Player_1_Card_1" Grid.Column="1" Grid.Row="2" Background="{StaticResource BackgroundDark}" Click="PlayerCardClick">
             <Image x:Name="Player_1_Card_1_Image" Source="{StaticResource card back}" />
         </Button>

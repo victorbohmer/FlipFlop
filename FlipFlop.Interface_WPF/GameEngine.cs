@@ -1,4 +1,5 @@
-﻿using FlipFlop.Interface_WPF.Classes;
+﻿using FlipFlop.Interface_WPF.AI;
+using FlipFlop.Interface_WPF.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,21 +15,32 @@ namespace FlipFlop.Interface_WPF
 
         public Player ActivePlayer;
         PlayerCard SelectedCard;
+        AIPlayer AIPlayer;
+
         
         public GameEngine (MainWindow mainWindow)
         {
             MainWindow = mainWindow;
             Players = new List<Player> { new Player(Deck, MainWindow, 1), new Player(Deck, MainWindow, 2) };
             Board = new Board(Deck, MainWindow);
+            AIPlayer = new Aziraphale(Board, Players[1]);
         }
 
         internal void SetupFirstGame()
         {
+            Board.Clear();
+            ActivePlayer = Players[1];
+            SetupNewGame();
+        }
+        public void SetupNewGame()
+        {
+            Board.Discard();
+            Board.Clear();
+            Board.ResetSpaceColors();
             Players.ForEach(x => x.DrawNewHand());
             MainWindow.UpdateDeckSize(Deck.CardList.Count);
-            ActivePlayer = Players[0];
+            NewRound();
         }
-
         internal void SwitchActivePlayer()
         {
             ActivePlayer = Players[ActivePlayer.Id == 1 ? 1 : 0];
@@ -47,7 +59,28 @@ namespace FlipFlop.Interface_WPF
             HideHand();
             DeselectPlayerCard();
             SwitchActivePlayer();
-            MainWindow.ShowNextRoundPopup();
+
+            if (IsAIsTurn())
+            {
+                PlayAITurn();
+            }
+            else
+                MainWindow.ShowNextRoundPopup();
+
+        }
+
+        private bool IsAIsTurn()
+        {
+            return GameMode.AI && ActivePlayer.Id == 2;
+        }
+
+        private void PlayAITurn()
+        {
+            Board.ResetSpaceColors();
+            SelectedCard = AIPlayer.SelectCardToPlay();
+            BoardSpace boardSpace = AIPlayer.SelectSpaceToPlayOn(SelectedCard);
+
+            PlayCard(boardSpace);
         }
 
         internal void StartRound()
@@ -74,7 +107,6 @@ namespace FlipFlop.Interface_WPF
                 SelectedCard = clickedCard;
                 SelectedCard.SetColorSelected();
             }
-
         }
 
         public void DeselectPlayerCard()
@@ -86,19 +118,25 @@ namespace FlipFlop.Interface_WPF
             }
         }
 
-        internal void PlayCard(string boardSpaceName)
+        internal void TryToPlayCard(string boardSpaceName)
         {
             if (SelectedCard == null || SelectedCard.IsEmpty())
                 return;
 
-            BoardSpace space = Board.GetByName(boardSpaceName);
+            BoardSpace boardSpace = Board.GetByName(boardSpaceName);
 
-            if (!space.IsEmpty())
+            if (!boardSpace.IsEmpty())
                 return;
 
+            PlayCard(boardSpace);
+
+        }
+
+        private void PlayCard(BoardSpace boardSpace)
+        {
             Card playedCard = SelectedCard.TakeCard();
-            space.PlaceCard(playedCard);
-            Board.FlipFlopCard(space, ActivePlayer.Id);
+            boardSpace.PlaceCard(playedCard);
+            Board.FlipFlopCard(boardSpace, ActivePlayer.Id);
 
             RoundOver();
         }
@@ -119,15 +157,6 @@ namespace FlipFlop.Interface_WPF
                 MainWindow.ShowMatchEndPopup();
             }
 
-        }
-
-        public void SetupNewGame()
-        {
-            Board.Discard();
-            Board.Clear();
-            Players.ForEach(x => x.DrawNewHand());
-            MainWindow.UpdateDeckSize(Deck.CardList.Count);
-            NewRound();
         }
 
     }
