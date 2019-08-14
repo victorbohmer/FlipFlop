@@ -17,8 +17,8 @@ namespace FlipFlop.Interface_WPF
         PlayerCard SelectedCard;
         AIPlayer AIPlayer;
 
-        
-        public GameEngine (MainWindow mainWindow)
+
+        public GameEngine(MainWindow mainWindow)
         {
             MainWindow = mainWindow;
             Players = new List<Player> { new Player(Deck, MainWindow, 1), new Player(Deck, MainWindow, 2) };
@@ -28,7 +28,6 @@ namespace FlipFlop.Interface_WPF
 
         internal void SetupFirstGame()
         {
-            Board.Clear();
             ActivePlayer = Players[1];
             SetupNewGame();
         }
@@ -37,10 +36,29 @@ namespace FlipFlop.Interface_WPF
             Board.Discard();
             Board.Clear();
             Board.ResetSpaceColors();
-            Players.ForEach(x => x.DrawNewHand());
-            MainWindow.UpdateDeckSize(Deck.CardList.Count);
-            NewRound();
+
+            if (Deck.EnoughCardsLeft())
+            {
+                Players.ForEach(x => x.DrawNewHand());
+                MainWindow.UpdateDeckSize(Deck.CardList.Count);
+                NewRound();
+            }
+            else
+            {
+                ActivePlayer = Players.OrderByDescending(x => x.Score).First();
+                MainWindow.ShowMatchEndPopup();
+            }
         }
+
+        internal void CleanUpAfterMatch()
+        {
+            Board.Clear();
+            Board.ResetSpaceColors();
+            MainWindow.UpdateScoreBox();
+            SwitchActivePlayer();
+            MainWindow.UpdateScoreBox();
+        }
+
         internal void SwitchActivePlayer()
         {
             ActivePlayer = Players[ActivePlayer.Id == 1 ? 1 : 0];
@@ -53,7 +71,6 @@ namespace FlipFlop.Interface_WPF
             else
                 NewRound();
         }
-
         private void NewRound()
         {
             HideHand();
@@ -88,6 +105,7 @@ namespace FlipFlop.Interface_WPF
             Board.ResetSpaceColors();
             ShowHand();
         }
+
         internal void ShowHand()
         {
             ActivePlayer.ShowHand();
@@ -147,15 +165,7 @@ namespace FlipFlop.Interface_WPF
             ActivePlayer = Players[Board.Winner()];
             MainWindow.UpdateScoreBox();
 
-            if (Deck.EnoughCardsLeft())
-            {
-                MainWindow.ShowNewGamePopup(score);
-            }
-            else
-            {
-                ActivePlayer = Players.OrderByDescending(x => x.Score).First();
-                MainWindow.ShowMatchEndPopup();
-            }
+            MainWindow.ShowNewGamePopup(score);
 
         }
 

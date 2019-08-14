@@ -33,6 +33,7 @@ namespace FlipFlop.Interface_WPF
         }
         public void SetupNewMatch()
         {
+            GE.CleanUpAfterMatch();
             GE = new GameEngine(this);
             GE.SetupFirstGame();
         }
@@ -161,7 +162,6 @@ namespace FlipFlop.Interface_WPF
         {
             button.Background = (SolidColorBrush)FindResource(color.ToString());
         }
-
 
         //
 

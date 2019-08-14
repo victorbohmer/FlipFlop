@@ -49,9 +49,10 @@ namespace FlipFlop.Interface_WPF.AI
         public override BoardSpace SelectSpaceToPlayOn(PlayerCard selectedCard)
         {
             List<BoardSpace> spacesThatCanBeTaken = Board.Spaces.Where(x =>
-            x.Card != null &&
-            x.Card.Value < selectedCard.Card.Value &&
-            x.Owner != 2)
+                x.Card != null &&
+                x.Card.Value < selectedCard.Card.Value &&
+                x.Owner != 2)
+                .OrderByDescending(x => x.Card.Value)
                 .ToList();
 
             if (spacesThatCanBeTaken != null)

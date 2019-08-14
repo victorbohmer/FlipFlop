@@ -111,7 +111,7 @@
         </Grid.RowDefinitions>
 
 
-        <Popup Name="NextRoundPopup" Width="200" Height="100" IsOpen="True" Placement="Center" VerticalOffset="-268">
+        <Popup Name="NextRoundPopup" Width="200" Height="100" IsOpen="False" Placement="Center" VerticalOffset="-268">
             <Button Name="NextRoundPopupText" Background="{StaticResource Popup}" FontSize="24" Click="NextRoundClick" >
                 Player 1's turn
             </Button>
