@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlipFlop.Interface_WPF.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,6 +44,16 @@ namespace FlipFlop.Interface_WPF.Classes
         internal bool CanBeSelected()
         {
             return WPFImage.Source != NoCardImage;
+        }
+
+        internal void SetColorSelected()
+        {
+            MainWindow.SetBackgroundColor(WPFButton, WPFColor.GridDark);
+        }
+
+        internal void ResetColor()
+        {
+            MainWindow.SetBackgroundColor(WPFButton, WPFColor.BackgroundDark);
         }
     }
 }

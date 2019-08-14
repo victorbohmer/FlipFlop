@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FlipFlop.Interface_WPF.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,5 +38,14 @@ namespace FlipFlop.Interface_WPF.Classes
             WPFButton.RenderTransform = new RotateTransform(playerId == 1 ? 0 : 90);
         }
 
+        internal void ResetColor()
+        {
+            MainWindow.SetBackgroundColor(WPFButton, WPFColor.Grid);
+        }
+
+        internal void SetColorFlipped()
+        {
+            MainWindow.SetBackgroundColor(WPFButton, WPFColor.Popup);
+        }
     }
 }

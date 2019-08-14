@@ -71,6 +71,7 @@
     </Compile>
     <Compile Include="Classes\Card.cs" />
     <Compile Include="Classes\Deck.cs" />
+    <Compile Include="Enums\WPFColor.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

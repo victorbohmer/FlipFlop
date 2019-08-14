@@ -33,9 +33,15 @@ namespace FlipFlop.Interface_WPF.Classes
             Spaces.ForEach(x => x.ReturnCard(Deck));
         }
 
+        public void ResetSpaceColors()
+        {
+            Spaces.ForEach(x => x.ResetColor());
+        }
+
         public void FlipFlopCard(BoardSpace clickedSpace, int activePlayerId)
         {
             clickedSpace.ChangeOwner(activePlayerId);
+            clickedSpace.SetColorFlipped();
             TryToFlipFlopNeighbours(clickedSpace);
         }
 

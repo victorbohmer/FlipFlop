@@ -34,6 +34,27 @@ namespace FlipFlop.Interface_WPF
             ActivePlayer = Players[ActivePlayer.Id == 1 ? 1 : 0];
         }
 
+        private void RoundOver()
+        {
+            if (Board.Full)
+                GameEnd();
+            else
+                NewRound();
+        }
+
+        private void NewRound()
+        {
+            HideHand();
+            DeselectPlayerCard();
+            SwitchActivePlayer();
+            MainWindow.ShowNextRoundPopup();
+        }
+
+        internal void StartRound()
+        {
+            Board.ResetSpaceColors();
+            ShowHand();
+        }
         internal void ShowHand()
         {
             ActivePlayer.ShowHand();
@@ -51,7 +72,7 @@ namespace FlipFlop.Interface_WPF
             if (clickedCard.CanBeSelected())
             {
                 SelectedCard = clickedCard;
-                MainWindow.SetBackgroundColorDark(SelectedCard);
+                SelectedCard.SetColorSelected();
             }
 
         }
@@ -60,7 +81,7 @@ namespace FlipFlop.Interface_WPF
         {
             if (SelectedCard != null)
             {
-                MainWindow.SetBackgroundColorLight(SelectedCard);
+                SelectedCard.ResetColor();
                 SelectedCard = null;
             }
         }
@@ -80,22 +101,6 @@ namespace FlipFlop.Interface_WPF
             Board.FlipFlopCard(space, ActivePlayer.Id);
 
             RoundOver();
-        }
-
-        private void RoundOver()
-        {
-            if (Board.Full)
-                GameEnd();
-            else
-                NewRound();
-        }
-
-        private void NewRound()
-        {
-            HideHand();
-            DeselectPlayerCard();
-            SwitchActivePlayer();
-            MainWindow.ShowNextRoundPopup();
         }
 
         private void GameEnd()

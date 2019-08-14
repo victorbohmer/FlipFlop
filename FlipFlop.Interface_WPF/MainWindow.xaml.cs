@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FlipFlop.Interface_WPF.Classes;
+using FlipFlop.Interface_WPF.Enums;
 
 namespace FlipFlop.Interface_WPF
 {
@@ -65,17 +66,19 @@ namespace FlipFlop.Interface_WPF
             }
         }
 
+      
+
         private void NextRoundClick(object sender, RoutedEventArgs e)
         {
             NextRoundPopup.IsOpen = false;
-            GE.ShowHand();
+            GE.StartRound();
         }
         private void TryGoToNextRound()
         {
             if (NextRoundPopup.IsOpen)
             {
                 NextRoundPopup.IsOpen = false;
-                GE.ShowHand();
+                GE.StartRound();
             }
             else if (NewGamePopup.IsOpen)
             {
@@ -139,14 +142,10 @@ namespace FlipFlop.Interface_WPF
         {
             Deck_Size.Text = count.ToString();
         }
-        internal void SetBackgroundColorDark(PlayerCard selectedCard)
+        internal void SetBackgroundColor(Button button, WPFColor color)
         {
-            selectedCard.WPFButton.Background = (Brush)new BrushConverter().ConvertFrom("#5D82C7");
+            button.Background = (SolidColorBrush)FindResource(color.ToString());
         }
 
-        internal void SetBackgroundColorLight(PlayerCard selectedCard)
-        {
-            selectedCard.WPFButton.Background = (Brush)new BrushConverter().ConvertFrom("#77CBD2");
-        }
     }
 }
