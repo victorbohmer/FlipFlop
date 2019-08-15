@@ -13,6 +13,7 @@ namespace FlipFlop.Interface_WPF.AI
         {
             Board = board;
             Player = player;
+            Name = "Aziraphale (AI)";
         }
 
         public override PlayerCard SelectCardToPlay()
@@ -68,7 +69,6 @@ namespace FlipFlop.Interface_WPF.AI
             return Board.RandomEmptySpace();
 
         }
-
 
         private BoardSpace FindRandomEmptyNeighbouringSpace(BoardSpace boardSpace)
         {

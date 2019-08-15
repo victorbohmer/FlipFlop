@@ -10,12 +10,14 @@ namespace FlipFlop.Interface_WPF.Classes
         public List<PlayerCard> Hand { get; private set; } = new List<PlayerCard>();
         public Deck Deck { get;}
         public int Score { get; internal set; }
+        public string Name { get; internal set; }
 
         public Player(Deck deck, MainWindow mainWindow, int id)
         {
             Deck = deck;
             Id = id;
             CreateHand(mainWindow);
+            Name = $"Player {id}";
         }
 
         private void CreateHand(MainWindow mainWindow)

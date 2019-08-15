@@ -1,5 +1,6 @@
 ﻿using FlipFlop.Interface_WPF.AI;
 using FlipFlop.Interface_WPF.Classes;
+using FlipFlop.Interface_WPF.RecordKeeping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace FlipFlop.Interface_WPF
         readonly MainWindow MainWindow;
         readonly List<Player> Players;
         readonly Board Board;
-
+        readonly FileHandler FileHandler = new FileHandler();
         public Player ActivePlayer { get; private set; }
         PlayerCard SelectedCard;
         readonly AIPlayer AIPlayer;
@@ -31,31 +32,25 @@ namespace FlipFlop.Interface_WPF
             MainWindow.UpdateScoreBox();
             SwitchActivePlayer();
             MainWindow.UpdateScoreBox();
-            SetupNewGame();
+            TryToSetupNewGame();
         }
-        public void SetupNewGame()
+        public void TryToSetupNewGame()
         {
             Board.Discard();
             Board.Clear();
             Board.ResetSpaceColors();
 
             if (Deck.EnoughCardsLeft())
-            {
-                Players.ForEach(x => x.DrawNewHand());
-                MainWindow.UpdateDeckSize(Deck.CardList.Count);
-                NewRound();
-            }
+                SetupNewGame();
             else
-            {
-                ActivePlayer = Players.OrderByDescending(x => x.Score).First();
-                MainWindow.ShowMatchEndPopup();
-            }
+                EndMatch();
         }
 
-        internal void CleanUpAfterMatch()
+        private void SetupNewGame()
         {
-            Board.Clear();
-            Board.ResetSpaceColors();
+            Players.ForEach(x => x.DrawNewHand());
+            MainWindow.UpdateDeckSize(Deck.CardList.Count);
+            NewRound();
         }
 
         internal void SwitchActivePlayer()
@@ -168,5 +163,41 @@ namespace FlipFlop.Interface_WPF
 
         }
 
+        private void EndMatch()
+        {
+            List<Player> sortedPlayers = Players.OrderByDescending(x => x.Score).ToList();
+
+            MatchRecord record = new MatchRecord(sortedPlayers, AIPlayer.Name);
+            FileHandler.SaveMatchRecord(record);
+
+            ActivePlayer = sortedPlayers.First();
+            MainWindow.ShowMatchEndPopup();
+        }
+
+        internal void CleanUpBeforeNewMatch()
+        {
+            Board.Clear();
+            Board.ResetSpaceColors();
+        }
+
+        internal void UpdatePlayerNames(string player1Name, string player2Name)
+        {
+            Players[0].Name = player1Name;
+            Players[1].Name = player2Name;
+
+            MainWindow.UpdateNameBox(1, player1Name);
+
+            if (GameMode.AI)
+                MainWindow.UpdateNameBox(2, AIPlayer.Name);
+            else
+                MainWindow.UpdateNameBox(2, player2Name);
+
+        }
+
+        internal string GetFullRecordText()
+        {
+            List<MatchRecord> matchRecords = FileHandler.GetRecordsFromFile();
+            return String.Join("\n", matchRecords.Select(x => x.ToString()));
+        }
     }
 }

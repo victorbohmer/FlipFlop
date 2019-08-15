@@ -146,7 +146,34 @@
 
         </Popup>
 
-        <Popup Name="SettingsPopup" Width="400" Height="300" IsOpen="False" Placement="Center">
+        <Popup Name="ShowRecordsPopup" Width="600" Height="500" IsOpen="False" Placement="Center">
+            <Grid Background="{StaticResource GridDark}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <TextBlock Name="Records" Text="2019-08-15: Victor won against Aziraphale (AI) with 17 points against 8" 
+                           Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" TextWrapping="Wrap"
+                           Background="{StaticResource Background}" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                           FontSize="16" />
+                <Button Name="ExitRecords" Grid.Row="3" Grid.Column="2" Click="ExitRecordsClick"
+                    Background="{StaticResource Grid}">
+                    <TextBlock TextWrapping="Wrap" Text="Confirm" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
+                </Button>
+            </Grid>
+        </Popup>
+
+
+        <Popup Name="SettingsPopup" Width="352" Height="352" IsOpen="False" Placement="Center">
             <Grid Background="{StaticResource GridDark}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -157,49 +184,63 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="2*" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="4*" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="4*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Button Name="AIModeOn" Grid.Row="1" Grid.Column="1" Click="AIModeOnClick"
+                <TextBlock Text="P1 Name" Grid.Row="1" Grid.Column="1" Background="{StaticResource Grid}"
+                           TextAlignment="Center" FontSize="20" />
+                <TextBox Name="Player1NameInput" Grid.Row="2" Grid.Column="1" Background="AliceBlue"
+                         Text="Player 1"  TextAlignment="Center" FontSize="20" />
+
+                <TextBlock Text="P2 Name" Grid.Row="1" Grid.Column="3" Background="{StaticResource Grid}"
+                           TextAlignment="Center" FontSize="20" />
+                <TextBox Name="Player2NameInput" Grid.Row="2" Grid.Column="3" Background="AliceBlue"
+                         Text="Player 2"  TextAlignment="Center" FontSize="20" />
+                
+                <Button Name="AIModeOn" Grid.Row="4" Grid.Column="1" Click="AIModeOnClick"
                     Background="{StaticResource BackgroundDark}">
                     <TextBlock TextWrapping="Wrap" Text="AI Mode
                                On" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
                 </Button>
-                <Button Name="AIModeOff" Grid.Row="1" Grid.Column="3" Click="AIModeOffClick"
+                <Button Name="AIModeOff" Grid.Row="4" Grid.Column="3" Click="AIModeOffClick"
                     Background="{StaticResource Background}">
                     <TextBlock TextWrapping="Wrap" Text="AI Mode
                                Off" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
                 </Button>
-                <Button Name="GameLengthShort" Grid.Row="3" Grid.Column="1" Click="GameLengthShortClick"
+                <Button Name="GameLengthShort" Grid.Row="6" Grid.Column="1" Click="GameLengthShortClick"
                     Background="{StaticResource BackgroundDark}">
                     <TextBlock TextWrapping="Wrap" Text="Game Length
                                Short" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
                 </Button>
-                <Button Name="GameLengthLong" Grid.Row="3" Grid.Column="3" Click="GameLengthLongClick"
+                <Button Name="GameLengthLong" Grid.Row="6" Grid.Column="3" Click="GameLengthLongClick"
                     Background="{StaticResource Background}">
                     <TextBlock TextWrapping="Wrap" Text="Game Length
                                Long" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
                 </Button>
-                <Button Grid.Row="5" Grid.Column="3" Click="ExitSettingsClick"
-                    Background="{StaticResource PopupDark}">
-                    <TextBlock TextWrapping="Wrap" Text="Exit Settings" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
+                <Button Name="ExitSettings" Grid.Row="8" Grid.Column="3" Click="ExitSettingsClick"
+                    Background="{StaticResource Grid}">
+                    <TextBlock TextWrapping="Wrap" Text="Confirm" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
                 </Button>
 
             </Grid>
         </Popup>
 
-        <Button Grid.Column="1" Grid.Row="8" Background="{StaticResource Background}" 
+        <Button Name="OpenSettings" Grid.Column="1" Grid.Row="8" Background="{StaticResource Background}" 
                 BorderBrush="{StaticResource Background}" Click="OpenSettingsClick">
             <Image  Source="{StaticResource settings}" />
         </Button>
 
-        <TextBlock Text="Player 1" FontSize="24" TextAlignment="Center" VerticalAlignment="Center" 
+        <TextBlock Name="Player_1_Name" Text="Player 1" FontSize="24" TextAlignment="Center" VerticalAlignment="Center" 
                    Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="5"/>
+        
         <Image Source="{StaticResource card back}"
                Grid.Row="1" Grid.Column="7" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
@@ -209,7 +250,9 @@
             </Image.RenderTransform>
         </Image>
         <TextBlock x:Name="Player_1_Score" Text="0" FontSize="30" TextAlignment="Center" VerticalAlignment="Center" 
-                   Grid.Row="1" Grid.Column="7"/>
+                   Grid.Row="1" Grid.Column="7">
+
+        </TextBlock>
 
 
         <Button x:Name="Player_1_Card_1" Grid.Column="1" Grid.Row="2" Background="{StaticResource BackgroundDark}" Click="PlayerCardClick">
@@ -228,7 +271,7 @@
             <Image x:Name="Player_1_Card_5_Image" Source="{StaticResource card back}" />
         </Button>
 
-        <TextBlock Grid.Column="2" Grid.ColumnSpan="7"
+        <TextBlock Name="BoardBackground" Grid.Column="2" Grid.ColumnSpan="7"
                    Grid.Row="5" Grid.RowSpan="7"
                    Background="{StaticResource GridDark}" />
 
@@ -318,7 +361,7 @@
         <Image Source="{StaticResource card back}"
                Grid.Row="8" Grid.Column="9" RenderTransformOrigin="0.5,0.5">
         </Image>
-        <TextBlock x:Name="Deck_Size" Text="0" FontSize="40" TextAlignment="Center" VerticalAlignment="Center" 
+        <TextBlock Name="Deck_Size" Text="0" FontSize="40" TextAlignment="Center" VerticalAlignment="Center" 
                    Grid.Row="8" Grid.Column="9"/>
 
 
@@ -383,8 +426,9 @@
             </Button.RenderTransform>
         </Button>
 
-        <TextBlock Text="Player 2" FontSize="24" TextAlignment="Center" VerticalAlignment="Center" 
+        <TextBlock Name="Player_2_Name" Text="Player 2" FontSize="24" TextAlignment="Center" VerticalAlignment="Center" 
                    Grid.Row="15" Grid.Column="3" Grid.ColumnSpan="5"/>
+        
         <Image Source="{StaticResource card back}"
                Grid.Row="15" Grid.Column="7" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>

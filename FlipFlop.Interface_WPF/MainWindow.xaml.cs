@@ -33,7 +33,7 @@ namespace FlipFlop.Interface_WPF
         }
         public void SetupNewMatch()
         {
-            GE.CleanUpAfterMatch();
+            GE.CleanUpBeforeNewMatch();
             GE = new GameEngine(this);
             GE.SetupFirstGame();
         }
@@ -87,7 +87,7 @@ namespace FlipFlop.Interface_WPF
             else if (NewGamePopup.IsOpen)
             {
                 NewGamePopup.IsOpen = false;
-                GE.SetupNewGame();
+                GE.TryToSetupNewGame();
             }
         }
 
@@ -116,7 +116,7 @@ namespace FlipFlop.Interface_WPF
         private void NewGameClick(object sender, RoutedEventArgs e)
         {
             NewGamePopup.IsOpen = false;
-            GE.SetupNewGame();
+            GE.TryToSetupNewGame();
         }
 
         private void NewMatchClick(object sender, RoutedEventArgs e)
@@ -132,23 +132,30 @@ namespace FlipFlop.Interface_WPF
 
         internal void ShowNextRoundPopup()
         {
-            NextRoundPopupText.Content = $"Player {GE.ActivePlayer.Id}'s turn!";
+            NextRoundPopupText.Content = $"{GE.ActivePlayer.Name}'s turn!";
 
             NextRoundPopup.VerticalOffset = GE.ActivePlayer.Id == 1 ? -236 : 236;
             NextRoundPopup.IsOpen = true;
         }
         internal void ShowNewGamePopup(int score)
         {
-            NewGamePopupText.Text = $"Player {GE.ActivePlayer.Id} controlled {(score + 9) / 2} spaces and got {score} {(score == 1 ? "point" : "points")}!";
+            NewGamePopupText.Text = $"{GE.ActivePlayer.Name} controlled {(score + 9) / 2} spaces and got {score} {(score == 1 ? "point" : "points")}!";
 
             NewGamePopup.IsOpen = true;
             NewGamePopup.VerticalOffset = GE.ActivePlayer.Id == 1 ? -236 : 236;
         }
         internal void ShowMatchEndPopup()
         {
-            MatchEndPopupText.Text = $"Player {GE.ActivePlayer.Id} won with {GE.ActivePlayer.Score} points!";
+            MatchEndPopupText.Text = $"{GE.ActivePlayer.Name} won with {GE.ActivePlayer.Score} points!";
             MatchEndPopup.IsOpen = true;
         }
+
+        internal void UpdateNameBox(int playerId, string playerName)
+        {
+            TextBlock nameBox = (TextBlock)FindName($"Player_{playerId}_Name");
+            nameBox.Text = playerName;
+        }
+
         public void UpdateScoreBox()
         {
             TextBlock scoreBox = (TextBlock)FindName($"Player_{GE.ActivePlayer.Id}_Score");
@@ -162,8 +169,6 @@ namespace FlipFlop.Interface_WPF
         {
             button.Background = (SolidColorBrush)FindResource(color.ToString());
         }
-
-        //
 
         private void OpenSettingsClick(object sender, RoutedEventArgs e)
         {
@@ -196,7 +201,19 @@ namespace FlipFlop.Interface_WPF
         private void ExitSettingsClick(object sender, RoutedEventArgs e)
         {
             SettingsPopup.IsOpen = false;
+            GE.UpdatePlayerNames(Player1NameInput.Text, Player2NameInput.Text);
         }
-        
+
+        private void ShowRecordsClick(object sender, RoutedEventArgs e)
+        {
+            Records.Text = GE.GetFullRecordText();
+            SettingsPopup.IsOpen = false;
+            ShowRecordsPopup.IsOpen = true;
+        }
+
+        private void ExitRecordsClick(object sender, RoutedEventArgs e)
+        {
+            ShowRecordsPopup.IsOpen = false;
+        }
     }
 }
