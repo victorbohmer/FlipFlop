@@ -141,14 +141,14 @@ namespace FlipFlop.Interface_WPF
         }
         internal void ShowNewGamePopup(int score)
         {
-            NewGamePopupText.Text = $"{GE.ActivePlayer.Name} controlled {(score + 9) / 2} spaces and got {score} {(score == 1 ? "point" : "points")}!";
+            NewGamePopupText.Text = $"{GE.ActivePlayerName} controlled {(score + 9) / 2} spaces and got {score} {(score == 1 ? "point" : "points")}!";
 
             NewGamePopup.IsOpen = true;
             NewGamePopup.VerticalOffset = GE.ActivePlayer.Id == 1 ? -236 : 236;
         }
         internal void ShowMatchEndPopup()
         {
-            MatchEndPopupText.Text = $"{GE.ActivePlayer.Name} won with {GE.ActivePlayer.Score} points!";
+            MatchEndPopupText.Text = $"{GE.ActivePlayerName} won with {GE.ActivePlayer.Score} points!";
             MatchEndPopup.IsOpen = true;
         }
 

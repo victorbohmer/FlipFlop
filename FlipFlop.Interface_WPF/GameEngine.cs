@@ -15,6 +15,13 @@ namespace FlipFlop.Interface_WPF
         readonly Board Board;
         readonly FileHandler FileHandler = new FileHandler();
         public Player ActivePlayer { get; private set; }
+        public string ActivePlayerName
+        {
+            get
+            {
+                return GameMode.AI && ActivePlayer.Id == 2 ? AIPlayer.Name : ActivePlayer.Name;
+            }
+        }
         PlayerCard SelectedCard;
         readonly AIPlayer AIPlayer;
 
