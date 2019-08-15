@@ -24,7 +24,7 @@ namespace FlipFlop.Interface_WPF
     public partial class MainWindow : Window
     {
         GameEngine GE;
-        public int RulesPage { get; set; } = 1;
+        int rulesPage = 1;
         public MainWindow()
         {
             InitializeComponent();
@@ -39,6 +39,8 @@ namespace FlipFlop.Interface_WPF
             GE = new GameEngine(this);
             GE.SetupFirstGame();
         }
+
+
         private void KeyPressed(object sender, KeyEventArgs e)
         {
             Key keyPressed = e.Key;
@@ -74,6 +76,7 @@ namespace FlipFlop.Interface_WPF
             }
         }
 
+
         private void NextRoundClick(object sender, RoutedEventArgs e)
         {
             NextRoundPopup.IsOpen = false;
@@ -92,7 +95,6 @@ namespace FlipFlop.Interface_WPF
                 GE.TryToSetupNewGame();
             }
         }
-
         private void PlayerCardClick(object sender, RoutedEventArgs e)
         {
             Button pressedButton = (Button)sender;
@@ -108,29 +110,26 @@ namespace FlipFlop.Interface_WPF
             Button boardSpace = (Button)sender;
             GE.TryToPlayCard(boardSpace.Name);
         }
-
         private void SelectBoardSpaceByKey(char boardSpaceIndex)
         {
             string spaceName = $"Played_Card_{boardSpaceIndex}";
             GE.TryToPlayCard(spaceName);
         }
-
         private void NewGameClick(object sender, RoutedEventArgs e)
         {
             NewGamePopup.IsOpen = false;
             GE.TryToSetupNewGame();
         }
-
         private void NewMatchClick(object sender, RoutedEventArgs e)
         {
             MatchEndPopup.IsOpen = false;
             SetupNewMatch();
         }
-
         private void QuitClick(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
+
 
         internal void ShowNextRoundPopup()
         {
@@ -152,12 +151,12 @@ namespace FlipFlop.Interface_WPF
             MatchEndPopup.IsOpen = true;
         }
 
+
         internal void UpdateNameBox(int playerId, string playerName)
         {
             TextBlock nameBox = (TextBlock)FindName($"Player_{playerId}_Name");
             nameBox.Text = playerName;
         }
-
         public void UpdateScoreBox()
         {
             TextBlock scoreBox = (TextBlock)FindName($"Player_{GE.ActivePlayer.Id}_Score");
@@ -171,6 +170,20 @@ namespace FlipFlop.Interface_WPF
         {
             button.Background = (SolidColorBrush)FindResource(color.ToString());
         }
+        private void AdjustRulesImage(int adjustment)
+        {
+            try
+            {
+                ImageSource nextRuleImage = (ImageSource)FindResource($"Rules_Page_{rulesPage + adjustment}");
+                RulesImage.Source = nextRuleImage;
+                rulesPage += adjustment;
+            }
+            catch (ResourceReferenceKeyNotFoundException)
+            {
+                //Prevents the rule page change if page cannot be found
+            }
+        }
+
 
         private void OpenSettingsClick(object sender, RoutedEventArgs e)
         {
@@ -205,14 +218,12 @@ namespace FlipFlop.Interface_WPF
             SettingsPopup.IsOpen = false;
             GE.UpdatePlayerNames(Player1NameInput.Text, Player2NameInput.Text);
         }
-
         private void ShowRecordsClick(object sender, RoutedEventArgs e)
         {
             Records.Text = GE.GetFullRecordText();
             SettingsPopup.IsOpen = false;
             ShowRecordsPopup.IsOpen = true;
         }
-
         private void ExitRecordsClick(object sender, RoutedEventArgs e)
         {
             ShowRecordsPopup.IsOpen = false;
@@ -226,7 +237,6 @@ namespace FlipFlop.Interface_WPF
         {
             RulesPopup.IsOpen = false;
         }
-
         private void NextRulePageClick(object sender, RoutedEventArgs e)
         {
             AdjustRulesImage(1);
@@ -235,19 +245,7 @@ namespace FlipFlop.Interface_WPF
         {
             AdjustRulesImage(-1);
         }
-        private void AdjustRulesImage(int adjustment)
-        {
-            try
-            {
-                ImageSource nextRuleImage = (ImageSource)FindResource($"Rules_Page_{RulesPage + adjustment}");
-                RulesImage.Source = nextRuleImage;
-                RulesPage += adjustment;
-            }
-            catch (ResourceReferenceKeyNotFoundException)
-            {
-                //Prevents the rule page change if page cannot be found
-            }
-        }
+
         
     }
 }

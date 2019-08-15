@@ -14,6 +14,9 @@ namespace FlipFlop.Interface_WPF
         readonly List<Player> Players;
         readonly Board Board;
         readonly FileHandler FileHandler = new FileHandler();
+        readonly AIPlayer AIPlayer;
+
+
         public Player ActivePlayer { get; private set; }
         public string ActivePlayerName
         {
@@ -22,8 +25,12 @@ namespace FlipFlop.Interface_WPF
                 return GameMode.AI && ActivePlayer.Id == 2 ? AIPlayer.Name : ActivePlayer.Name;
             }
         }
-        PlayerCard SelectedCard;
-        readonly AIPlayer AIPlayer;
+        internal void SwitchActivePlayer()
+        {
+            ActivePlayer = Players[ActivePlayer.Id == 1 ? 1 : 0];
+        }
+        public PlayerCard SelectedCard { get; private set; }
+
 
         public GameEngine(MainWindow mainWindow)
         {
@@ -32,7 +39,6 @@ namespace FlipFlop.Interface_WPF
             Board = new Board(Deck, MainWindow);
             AIPlayer = new Aziraphale(Board, Players[1]);
         }
-
         internal void SetupFirstGame()
         {
             ActivePlayer = Players[0];
@@ -52,7 +58,6 @@ namespace FlipFlop.Interface_WPF
             else
                 EndMatch();
         }
-
         private void SetupNewGame()
         {
             Players.ForEach(x => x.DrawNewHand());
@@ -60,11 +65,7 @@ namespace FlipFlop.Interface_WPF
             NewRound(true);
         }
 
-        internal void SwitchActivePlayer()
-        {
-            ActivePlayer = Players[ActivePlayer.Id == 1 ? 1 : 0];
-        }
-
+        
         private void RoundOver()
         {
             if (Board.Full)
@@ -92,9 +93,7 @@ namespace FlipFlop.Interface_WPF
                 else
                     MainWindow.ShowNextRoundPopup();
             }
-
         }
-
         private void PlayAITurn()
         {
             Board.ResetSpaceColors();
@@ -103,24 +102,15 @@ namespace FlipFlop.Interface_WPF
 
             PlayCard(boardSpace);
         }
-
         internal void StartRound()
         {
             ShowHand();
         }
 
-        internal void ShowHand()
-        {
-            ActivePlayer.ShowHand();
-        }
-        internal void HideHand()
-        {
-            ActivePlayer.HideHand();
-        }
+
         public void SelectPlayerCard(string clickedCardName)
         {
-            if (SelectedCard != null)
-                DeselectPlayerCard();
+            DeselectPlayerCard();
 
             PlayerCard clickedCard = ActivePlayer.Hand.Single(x => x.Name == clickedCardName);
             if (clickedCard.CanBeSelected())
@@ -130,7 +120,6 @@ namespace FlipFlop.Interface_WPF
                 Board.ResetSpaceColors();
             }
         }
-
         public void DeselectPlayerCard()
         {
             if (SelectedCard != null)
@@ -139,6 +128,7 @@ namespace FlipFlop.Interface_WPF
                 SelectedCard = null;
             }
         }
+
 
         internal void TryToPlayCard(string boardSpaceName)
         {
@@ -151,9 +141,7 @@ namespace FlipFlop.Interface_WPF
                 return;
 
             PlayCard(boardSpace);
-
         }
-
         private void PlayCard(BoardSpace boardSpace)
         {
             Card playedCard = SelectedCard.TakeCard();
@@ -163,6 +151,7 @@ namespace FlipFlop.Interface_WPF
             RoundOver();
         }
 
+
         private void GameEnd()
         {
             int score = Board.AddPlayerScore(Players);
@@ -170,9 +159,7 @@ namespace FlipFlop.Interface_WPF
             MainWindow.UpdateScoreBox();
 
             MainWindow.ShowNewGamePopup(score);
-
         }
-
         private void EndMatch()
         {
             List<Player> sortedPlayers = Players.OrderByDescending(x => x.Score).ToList();
@@ -183,13 +170,21 @@ namespace FlipFlop.Interface_WPF
             ActivePlayer = sortedPlayers.First();
             MainWindow.ShowMatchEndPopup();
         }
-
         internal void CleanUpBeforeNewMatch()
         {
             Board.Clear();
             Board.ResetSpaceColors();
         }
 
+
+        internal void ShowHand()
+        {
+            ActivePlayer.ShowHand();
+        }
+        internal void HideHand()
+        {
+            ActivePlayer.HideHand();
+        }
         internal void UpdatePlayerNames(string player1Name, string player2Name)
         {
             Players[0].Name = player1Name;
@@ -203,6 +198,7 @@ namespace FlipFlop.Interface_WPF
                 MainWindow.UpdateNameBox(2, player2Name);
 
         }
+
 
         internal string GetFullRecordText()
         {

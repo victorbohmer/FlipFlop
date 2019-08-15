@@ -19,6 +19,10 @@ namespace FlipFlop.Interface_WPF.AI
         public override PlayerCard SelectCardToPlay()
         {
             List<PlayerCard> orderedHand = Player.Hand.Where(x => x.Card != null).OrderByDescending(x => x.Card.Value).ToList();
+
+            //Cards are randomly selected from a set spread depending on how many cards have already been played
+            //Example: If playing first the AI will pick a random card most turns, but always play its lowest card second and
+            //its highest card last
             switch (Board.PlayedCardCount)
             {
                 //AI plays first
@@ -49,6 +53,7 @@ namespace FlipFlop.Interface_WPF.AI
 
         public override BoardSpace SelectSpaceToPlayOn(PlayerCard selectedCard)
         {
+            //The AI will always take the highest card it can on the board where possible
             List<BoardSpace> spacesThatCanBeTaken = Board.Spaces.Where(x =>
                 x.Card != null &&
                 x.Card.Value < selectedCard.Card.Value &&
