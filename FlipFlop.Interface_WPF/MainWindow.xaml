@@ -17,6 +17,14 @@
         <SolidColorBrush x:Key="Popup" Color="#FFD02D" />
         <SolidColorBrush x:Key="PopupDark" Color="#F1BC19" />
 
+
+        <BitmapImage x:Key="Rules_Page_1" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/Rules_Page_1.png"/>
+        <BitmapImage x:Key="Rules_Page_2" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/Rules_Page_2.png"/>
+        <BitmapImage x:Key="Rules_Page_3" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/Rules_Page_3.png"/>
+        <BitmapImage x:Key="Rules_Page_4" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/Rules_Page_4.png"/>
+        <BitmapImage x:Key="Rules_Page_5" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/Rules_Page_5.png"/>
+
+
         <BitmapImage x:Key="settings" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/settings.png"/>
 
         <BitmapImage x:Key="card back" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="Cards/card back.png"/>
@@ -156,22 +164,61 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20" />
+                    <RowDefinition Height="*" />
                     <RowDefinition Height="10*" />
                     <RowDefinition Height="20" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="20" />
                 </Grid.RowDefinitions>
+                <TextBlock Text="Game Records" Foreground="{StaticResource Background}"
+                           Grid.Row="1" Grid.Column="1"/>
                 <TextBlock Name="Records" Text="2019-08-15: Victor won against Aziraphale (AI) with 17 points against 8" 
-                           Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" TextWrapping="Wrap"
+                           Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" TextWrapping="Wrap"
                            Background="{StaticResource Background}" ScrollViewer.VerticalScrollBarVisibility="Auto"
                            FontSize="16" />
-                <Button Name="ExitRecords" Grid.Row="3" Grid.Column="2" Click="ExitRecordsClick"
+                <Button Name="ExitRecords" Grid.Row="4" Grid.Column="2" Click="ExitRecordsClick"
                     Background="{StaticResource Grid}">
-                    <TextBlock TextWrapping="Wrap" Text="Confirm" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
+                    <TextBlock TextWrapping="Wrap" Text="Close" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
                 </Button>
             </Grid>
         </Popup>
 
+        <Popup Name="RulesPopup" Width="800" Height="700" IsOpen="False" Placement="Center">
+            <Grid Background="{StaticResource GridDark}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="20" />
+                </Grid.RowDefinitions>
+                <TextBlock Name="RulesTitle" Text="Rules" Foreground="{StaticResource Background}"
+                           Grid.Row="1" Grid.Column="1"/>
+                <Image Name="RulesImage" Source="{StaticResource Rules_Page_1}"
+               Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3">
+                </Image>
+                <Button Name="Forward" Grid.Row="4" Grid.Column="1" Click="PreviousRulePageClick"
+                    Background="{StaticResource Grid}">
+                    <TextBlock TextWrapping="Wrap" Text="Previous Page" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
+                </Button>
+                <Button Name="Back" Grid.Row="4" Grid.Column="3" Click="NextRulePageClick"
+                    Background="{StaticResource Grid}">
+                    <TextBlock TextWrapping="Wrap" Text="Next Page" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
+                </Button>
+                <Button Name="ExitRules" Grid.Row="4" Grid.Column="2" Click="ExitRulesClick"
+                    Background="{StaticResource Grid}">
+                    <TextBlock TextWrapping="Wrap" Text="Close" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
+                </Button>
+            </Grid>
+        </Popup>
 
         <Popup Name="SettingsPopup" Width="352" Height="352" IsOpen="False" Placement="Center">
             <Grid Background="{StaticResource GridDark}">
@@ -191,7 +238,8 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="4*" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="2*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
@@ -225,8 +273,16 @@
                     <TextBlock TextWrapping="Wrap" Text="Game Length
                                Long" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
                 </Button>
-                <Button Name="ExitSettings" Grid.Row="8" Grid.Column="3" Click="ExitSettingsClick"
+                <Button Name="ShowRecords" Grid.Row="8" Grid.Column="1" Click="ShowRecordsClick"
                     Background="{StaticResource Grid}">
+                    <TextBlock TextWrapping="Wrap" Text="Records" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
+                </Button>
+                <Button Name="ShowRules" Grid.Row="9" Grid.Column="1" Click="ShowRulesClick"
+                    Background="{StaticResource Grid}">
+                    <TextBlock TextWrapping="Wrap" Text="Rules" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
+                </Button>
+                <Button Name="ExitSettings" Grid.Row="8" Grid.Column="3" Click="ExitSettingsClick"
+                    Background="{StaticResource Grid}" Grid.RowSpan="2">
                     <TextBlock TextWrapping="Wrap" Text="Confirm" FontSize="20" TextAlignment="Center" VerticalAlignment="Center" />
                 </Button>
 

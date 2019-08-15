@@ -9,8 +9,14 @@ namespace FlipFlop.Interface_WPF.RecordKeeping
 {
     class FileHandler
     {
-        readonly string filePath = @"C:\Users\Victor Böhmer\Documents\FlipFlop\records.json";
+        readonly string folderPath;
+        readonly string filePath;
 
+        public FileHandler()
+        {
+            folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\FlipFlop";
+            filePath = folderPath + @"\records.json";
+        }
         internal void SaveMatchRecord(MatchRecord record)
         {
             List<MatchRecord> recordList = GetRecordsFromFile();
@@ -34,10 +40,16 @@ namespace FlipFlop.Interface_WPF.RecordKeeping
                 return JsonConvert.DeserializeObject<List<MatchRecord>>(jsonInput)
                                       ?? new List<MatchRecord>();
             }
+            catch (System.IO.DirectoryNotFoundException)
+            {
+                System.IO.Directory.CreateDirectory(folderPath);
+            }
             catch (System.IO.FileNotFoundException)
             {
-                return new List<MatchRecord>();
+                //No file found, will be automatically created in SaveRecordsToFile
             }
+
+            return new List<MatchRecord>();
         }
 
     }

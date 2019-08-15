@@ -1,4 +1,5 @@
 ﻿using FlipFlop.Interface_WPF.Classes;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,18 @@ namespace FlipFlop.Interface_WPF.RecordKeeping
             AIMatch = GameMode.AI;
             MatchLength = GameMode.GameLength;
             Date = DateTime.Today.ToString("yyyy-MM-dd");
+        }
+
+        [JsonConstructor]
+        public MatchRecord(string winner_Name, int winner_Score, string loser_Name, int loser_Score, bool aIMatch, string matchLength, string date)
+        {
+            Winner_Name = winner_Name;
+            Winner_Score = winner_Score;
+            Loser_Name = loser_Name;
+            Loser_Score = loser_Score;
+            AIMatch = aIMatch;
+            MatchLength = matchLength;
+            Date = date;
         }
 
         private string GetPlayerOrAIName(Player player, string aiName)

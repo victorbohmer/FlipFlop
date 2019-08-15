@@ -24,12 +24,14 @@ namespace FlipFlop.Interface_WPF
     public partial class MainWindow : Window
     {
         GameEngine GE;
+        public int RulesPage { get; set; } = 1;
         public MainWindow()
         {
             InitializeComponent();
             WindowState = WindowState.Maximized;
             GE = new GameEngine(this);
             GE.SetupFirstGame();
+            GE.UpdatePlayerNames(Player1NameInput.Text, Player2NameInput.Text);
         }
         public void SetupNewMatch()
         {
@@ -215,5 +217,37 @@ namespace FlipFlop.Interface_WPF
         {
             ShowRecordsPopup.IsOpen = false;
         }
+        private void ShowRulesClick(object sender, RoutedEventArgs e)
+        {
+            SettingsPopup.IsOpen = false;
+            RulesPopup.IsOpen = true;
+        }
+        private void ExitRulesClick(object sender, RoutedEventArgs e)
+        {
+            RulesPopup.IsOpen = false;
+        }
+
+        private void NextRulePageClick(object sender, RoutedEventArgs e)
+        {
+            AdjustRulesImage(1);
+        }
+        private void PreviousRulePageClick(object sender, RoutedEventArgs e)
+        {
+            AdjustRulesImage(-1);
+        }
+        private void AdjustRulesImage(int adjustment)
+        {
+            try
+            {
+                ImageSource nextRuleImage = (ImageSource)FindResource($"Rules_Page_{RulesPage + adjustment}");
+                RulesImage.Source = nextRuleImage;
+                RulesPage += adjustment;
+            }
+            catch (ResourceReferenceKeyNotFoundException)
+            {
+                //Prevents the rule page change if page cannot be found
+            }
+        }
+        
     }
 }

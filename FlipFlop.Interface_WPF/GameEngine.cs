@@ -50,7 +50,7 @@ namespace FlipFlop.Interface_WPF
         {
             Players.ForEach(x => x.DrawNewHand());
             MainWindow.UpdateDeckSize(Deck.CardList.Count);
-            NewRound();
+            NewRound(true);
         }
 
         internal void SwitchActivePlayer()
@@ -65,24 +65,27 @@ namespace FlipFlop.Interface_WPF
             else
                 NewRound();
         }
-        private void NewRound()
+        private void NewRound(bool firstRound = false)
         {
             HideHand();
             DeselectPlayerCard();
             SwitchActivePlayer();
 
-            if (IsAIsTurn())
+            if (ActivePlayer.Id == 1)
             {
-                PlayAITurn();
+                if (GameMode.AI && !firstRound)
+                    StartRound();
+                else
+                    MainWindow.ShowNextRoundPopup();
             }
             else
-                MainWindow.ShowNextRoundPopup();
+            {
+                if (GameMode.AI)
+                    PlayAITurn();
+                else
+                    MainWindow.ShowNextRoundPopup();
+            }
 
-        }
-
-        private bool IsAIsTurn()
-        {
-            return GameMode.AI && ActivePlayer.Id == 2;
         }
 
         private void PlayAITurn()
@@ -96,7 +99,6 @@ namespace FlipFlop.Interface_WPF
 
         internal void StartRound()
         {
-            Board.ResetSpaceColors();
             ShowHand();
         }
 
@@ -118,6 +120,7 @@ namespace FlipFlop.Interface_WPF
             {
                 SelectedCard = clickedCard;
                 SelectedCard.SetColorSelected();
+                Board.ResetSpaceColors();
             }
         }
 
