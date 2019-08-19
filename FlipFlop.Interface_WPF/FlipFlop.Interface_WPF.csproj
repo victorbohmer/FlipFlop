@@ -62,6 +62,8 @@
     <Compile Include="AI\Aziraphale.cs" />
     <Compile Include="Classes\Board.cs" />
     <Compile Include="Classes\BoardSpace.cs" />
+    <Compile Include="Classes\CardSpace.cs" />
+    <Compile Include="Classes_WPF\CardSpaceWPF.cs" />
     <Compile Include="Classes_WPF\WPFCardObject.cs" />
     <Compile Include="Classes\GameMode.cs" />
     <Compile Include="RecordKeeping\FileHandler.cs" />

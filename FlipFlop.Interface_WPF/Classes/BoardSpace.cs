@@ -1,4 +1,6 @@
-﻿using FlipFlop.Interface_WPF.Enums;
+﻿using FlipFlop.Interface_WPF.Classes;
+using FlipFlop.Interface_WPF.Classes_WPF;
+using FlipFlop.Interface_WPF.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +11,10 @@ using System.Windows.Media;
 
 namespace FlipFlop.Interface_WPF.GameClasses
 {
-    public class BoardCard
+    public class BoardCard : CardSpaceWPF
     {
-        public Card Card { get; protected set; }
-        private WPFCardObject CardSpace;
-        public int Index { get; set; }
         public int Owner { get; set; }
-        public bool IsEmpty { get { return Card == null; } }
-        public string Name { get { return CardSpace.WPFButton.Name; } }
+        public string Name { get { return CardObject.WPFButton.Name; } }
 
         public BoardCard(int spaceIndex, MainWindow mainWindow)
         {
@@ -24,7 +22,7 @@ namespace FlipFlop.Interface_WPF.GameClasses
             Index = spaceIndex;
 
             string buttonName = $"Played_Card_{spaceIndex}";
-            CardSpace = new WPFCardObject(buttonName, mainWindow, false);
+            CardObject = new WPFCardObject(buttonName, mainWindow, false);
 
         }
         public BoardCard(int spaceIndex)
@@ -32,43 +30,20 @@ namespace FlipFlop.Interface_WPF.GameClasses
             Index = spaceIndex;
         }
 
-        public void PlaceCard(Card card)
-        {
-            Card = card;
-            CardSpace.UpdateImage(Card);
-        }
-        public Card TakeCard()
-        {
-            Card returnedCard = Card;
-            Card = null;
-            CardSpace.UpdateImage(Card);
-
-            return returnedCard;
-        }
-
-        public void ReturnCard(Deck deck)
-        {
-            if (!IsEmpty)
-            {
-                Owner = 0;
-                deck.ReturnCard(TakeCard());
-            }
-        }
-
         public void ChangeOwner(int playerId)
         {
             Owner = playerId;
-            CardSpace.RotateCard(playerId);
+            CardObject.RotateCard(playerId);
         }
 
         public void ResetColor()
         {
-            CardSpace.SetColor(WPFColor.Grid);
+            CardObject.SetColor(WPFColor.Grid);
         }
 
         public void SetColorFlipped()
         {
-            CardSpace.SetColor(WPFColor.Popup);
+            CardObject.SetColor(WPFColor.Popup);
         }
     }
 }

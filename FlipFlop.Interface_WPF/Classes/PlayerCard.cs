@@ -1,29 +1,28 @@
 ﻿
 
+using FlipFlop.Interface_WPF.Classes_WPF;
 using FlipFlop.Interface_WPF.Enums;
 
 namespace FlipFlop.Interface_WPF.GameClasses
 {
-    public class PlayerCard
+    public class PlayerCard : CardSpaceWPF
     {
-        public Card Card { get; protected set; }
-        private WPFCardObject CardSpace;
-        public bool IsEmpty { get { return Card == null; } }
-        public int Index { get; }
-        public string Name { get { return CardSpace.WPFButton.Name; } }
+        public string Name { get { return CardObject.WPFButton.Name; } }
 
         public PlayerCard(int playerId, int cardIndex, MainWindow mainWindow)
         {
             Index = cardIndex;
 
             string buttonName = $"Player_{playerId}_Card_{cardIndex}";
-            CardSpace = new WPFCardObject(buttonName, mainWindow, true);
+            CardObject = new WPFCardObject(buttonName, mainWindow, true);
         }
+
         public PlayerCard(int cardIndex)
         {
             //Creates player card that's not linked to WPF for use in tests or with other interfaces
             Index = cardIndex;
         }
+
         public void DrawNew(Deck deck)
         {
             if (!IsEmpty)
@@ -31,41 +30,29 @@ namespace FlipFlop.Interface_WPF.GameClasses
 
             Card = deck.Draw();
         }
-        public void PlaceCard(Card card)
-        {
-            Card = card;
-            CardSpace.UpdateImage(Card);
-        }
-        public Card TakeCard()
-        {
-            Card returnedCard = Card;
-            Card = null;
-
-            return returnedCard;
-        }
 
         public void ShowCard()
         {
-            CardSpace.UpdateImage(Card);
+            CardObject.UpdateImage(Card);
         }
         public void HideCard()
         {
-            CardSpace.HideImage();
+            CardObject.HideImage();
         }
 
         public bool CanBeSelected()
         {
-            return CardSpace.ImageShowing();
+            return CardObject.ImageShowing();
         }
 
         public void Selected()
         {
-            CardSpace.SetColor(WPFColor.GridDark);
+            CardObject.SetColor(WPFColor.GridDark);
         }
 
         public void Unselected()
         {
-            CardSpace.SetColor(WPFColor.BackgroundDark);
+            CardObject.SetColor(WPFColor.BackgroundDark);
         }
     }
 }
