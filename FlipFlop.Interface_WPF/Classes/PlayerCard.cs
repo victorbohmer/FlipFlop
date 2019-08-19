@@ -1,62 +1,71 @@
-﻿using FlipFlop.Interface_WPF.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Media;
+﻿
 
-namespace FlipFlop.Interface_WPF.Classes
+using FlipFlop.Interface_WPF.Enums;
+
+namespace FlipFlop.Interface_WPF.GameClasses
 {
-    public class PlayerCard : CardSpace
+    public class PlayerCard
     {
-        
+        public Card Card { get; protected set; }
+        private WPFCardObject CardSpace;
+        public bool IsEmpty { get { return Card == null; } }
+        public int Index { get; }
+        public string Name { get { return CardSpace.WPFButton.Name; } }
+
         public PlayerCard(int playerId, int cardIndex, MainWindow mainWindow)
         {
+            Index = cardIndex;
+
             string buttonName = $"Player_{playerId}_Card_{cardIndex}";
-            string imageName = buttonName + "_Image";
-
-            MainWindow = mainWindow;
-
-            WPFButton = (Button)MainWindow.FindName(buttonName);
-            WPFImage = (Image)MainWindow.FindName(imageName);
-            NoCardImage = (ImageSource)MainWindow.FindResource("card back");
+            CardSpace = new WPFCardObject(buttonName, mainWindow, true);
         }
-        public PlayerCard()
+        public PlayerCard(int cardIndex)
         {
             //Creates player card that's not linked to WPF for use in tests or with other interfaces
+            Index = cardIndex;
         }
         public void DrawNew(Deck deck)
         {
-            if (!IsEmpty())
+            if (!IsEmpty)
                 deck.ReturnCard(TakeCard());
 
             Card = deck.Draw();
         }
+        public void PlaceCard(Card card)
+        {
+            Card = card;
+            CardSpace.UpdateImage(Card);
+        }
+        public Card TakeCard()
+        {
+            Card returnedCard = Card;
+            Card = null;
+
+            return returnedCard;
+        }
 
         public void ShowCard()
         {
-            UpdateImage();
+            CardSpace.UpdateImage(Card);
         }
         public void HideCard()
         {
-            WPFImage.Source = NoCardImage;
+            CardSpace.HideImage();
         }
 
         public bool CanBeSelected()
         {
-            return WPFImage.Source != NoCardImage;
+            return CardSpace.ImageShowing();
         }
 
-        public void SetColorSelected()
+        public void Selected()
         {
-            MainWindow.SetBackgroundColor(WPFButton, WPFColor.GridDark);
+            CardSpace.SetColor(WPFColor.GridDark);
         }
 
-        public void ResetColor()
+        public void Unselected()
         {
-            MainWindow.SetBackgroundColor(WPFButton, WPFColor.BackgroundDark);
+            CardSpace.SetColor(WPFColor.BackgroundDark);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using FlipFlop.Interface_WPF.Classes;
+﻿using FlipFlop.Interface_WPF.GameClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace FlipFlop.Interface_WPF.AI
 
         abstract public PlayerCard SelectCardToPlay();
 
-        abstract public BoardSpace SelectSpaceToPlayOn(PlayerCard selectedCard);
+        abstract public BoardCard SelectSpaceToPlayOn(PlayerCard selectedCard);
 
     }
 }

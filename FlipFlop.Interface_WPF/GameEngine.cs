@@ -1,5 +1,5 @@
 ﻿using FlipFlop.Interface_WPF.AI;
-using FlipFlop.Interface_WPF.Classes;
+using FlipFlop.Interface_WPF.GameClasses;
 using FlipFlop.Interface_WPF.RecordKeeping;
 using System;
 using System.Collections.Generic;
@@ -98,7 +98,7 @@ namespace FlipFlop.Interface_WPF
         {
             Board.ResetSpaceColors();
             SelectedCard = AIPlayer.SelectCardToPlay();
-            BoardSpace boardSpace = AIPlayer.SelectSpaceToPlayOn(SelectedCard);
+            BoardCard boardSpace = AIPlayer.SelectSpaceToPlayOn(SelectedCard);
 
             PlayCard(boardSpace);
         }
@@ -119,7 +119,7 @@ namespace FlipFlop.Interface_WPF
                 if (clickedCard.CanBeSelected())
                 {
                     SelectedCard = clickedCard;
-                    SelectedCard.SetColorSelected();
+                    SelectedCard.Selected();
                     Board.ResetSpaceColors();
                 }
             }
@@ -134,7 +134,7 @@ namespace FlipFlop.Interface_WPF
         {
             if (SelectedCard != null)
             {
-                SelectedCard.ResetColor();
+                SelectedCard.Unselected();
                 SelectedCard = null;
             }
         }
@@ -142,17 +142,17 @@ namespace FlipFlop.Interface_WPF
 
         public void TryToPlayCard(string boardSpaceName)
         {
-            if (SelectedCard == null || SelectedCard.IsEmpty())
+            if (SelectedCard == null || SelectedCard.IsEmpty)
                 return;
 
-            BoardSpace boardSpace = Board.GetByName(boardSpaceName);
+            BoardCard boardSpace = Board.GetByName(boardSpaceName);
 
-            if (!boardSpace.IsEmpty())
+            if (!boardSpace.IsEmpty)
                 return;
 
             PlayCard(boardSpace);
         }
-        private void PlayCard(BoardSpace boardSpace)
+        private void PlayCard(BoardCard boardSpace)
         {
             Card playedCard = SelectedCard.TakeCard();
             boardSpace.PlaceCard(playedCard);

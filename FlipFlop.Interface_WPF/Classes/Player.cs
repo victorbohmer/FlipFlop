@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FlipFlop.Interface_WPF.Classes
+namespace FlipFlop.Interface_WPF.GameClasses
 {
     public class Player
     {
@@ -39,7 +39,7 @@ namespace FlipFlop.Interface_WPF.Classes
         {
             for (int cardIndex = 1; cardIndex <= 5; cardIndex++)
             {
-                Hand.Add(new PlayerCard());
+                Hand.Add(new PlayerCard(cardIndex));
             }
         }
 

@@ -7,32 +7,48 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace FlipFlop.Interface_WPF.Classes
+namespace FlipFlop.Interface_WPF.GameClasses
 {
-    public class BoardSpace : CardSpace
+    public class BoardCard
     {
+        public Card Card { get; protected set; }
+        private WPFCardObject CardSpace;
         public int Index { get; set; }
         public int Owner { get; set; }
-        public BoardSpace(int spaceIndex, MainWindow mainWindow)
+        public bool IsEmpty { get { return Card == null; } }
+        public string Name { get { return CardSpace.WPFButton.Name; } }
+
+        public BoardCard(int spaceIndex, MainWindow mainWindow)
         {
-            MainWindow = mainWindow;
 
             Index = spaceIndex;
 
             string buttonName = $"Played_Card_{spaceIndex}";
-            string imageName = buttonName + "_Image";
+            CardSpace = new WPFCardObject(buttonName, mainWindow, false);
 
-            WPFButton = (Button)MainWindow.FindName(buttonName);
-            WPFImage = (Image)MainWindow.FindName(imageName);
         }
-        public BoardSpace(int spaceIndex)
+        public BoardCard(int spaceIndex)
         {
             Index = spaceIndex;
         }
 
+        public void PlaceCard(Card card)
+        {
+            Card = card;
+            CardSpace.UpdateImage(Card);
+        }
+        public Card TakeCard()
+        {
+            Card returnedCard = Card;
+            Card = null;
+            CardSpace.UpdateImage(Card);
+
+            return returnedCard;
+        }
+
         public void ReturnCard(Deck deck)
         {
-            if (!IsEmpty())
+            if (!IsEmpty)
             {
                 Owner = 0;
                 deck.ReturnCard(TakeCard());
@@ -42,17 +58,17 @@ namespace FlipFlop.Interface_WPF.Classes
         public void ChangeOwner(int playerId)
         {
             Owner = playerId;
-            WPFButton.RenderTransform = new RotateTransform(playerId == 1 ? 0 : 90);
+            CardSpace.RotateCard(playerId);
         }
 
         public void ResetColor()
         {
-            MainWindow.SetBackgroundColor(WPFButton, WPFColor.Grid);
+            CardSpace.SetColor(WPFColor.Grid);
         }
 
         public void SetColorFlipped()
         {
-            MainWindow.SetBackgroundColor(WPFButton, WPFColor.Popup);
+            CardSpace.SetColor(WPFColor.Popup);
         }
     }
 }

@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using FlipFlop.Interface_WPF.Classes;
+using FlipFlop.Interface_WPF.GameClasses;
 using FlipFlop.Interface_WPF.Enums;
 
 namespace FlipFlop.Interface_WPF

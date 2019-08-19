@@ -1,6 +1,6 @@
 using FlipFlop.Interface_WPF;
 using FlipFlop.Interface_WPF.AI;
-using FlipFlop.Interface_WPF.Classes;
+using FlipFlop.Interface_WPF.GameClasses;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 

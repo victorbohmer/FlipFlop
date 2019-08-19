@@ -1,4 +1,4 @@
-﻿using FlipFlop.Interface_WPF.Classes;
+﻿using FlipFlop.Interface_WPF.GameClasses;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿using FlipFlop.Interface_WPF.Classes;
+﻿using FlipFlop.Interface_WPF.GameClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,10 +51,10 @@ namespace FlipFlop.Interface_WPF.AI
             }
         }
 
-        public override BoardSpace SelectSpaceToPlayOn(PlayerCard selectedCard)
+        public override BoardCard SelectSpaceToPlayOn(PlayerCard selectedCard)
         {
             //The AI will always take the highest card it can on the board where possible
-            List<BoardSpace> spacesThatCanBeTaken = Board.Spaces.Where(x =>
+            List<BoardCard> spacesThatCanBeTaken = Board.Spaces.Where(x =>
                 x.Card != null &&
                 x.Card.Value < selectedCard.Card.Value &&
                 x.Owner != 2)
@@ -63,9 +63,9 @@ namespace FlipFlop.Interface_WPF.AI
 
             if (spacesThatCanBeTaken != null)
             {
-                foreach (BoardSpace boardSpace in spacesThatCanBeTaken)
+                foreach (BoardCard boardSpace in spacesThatCanBeTaken)
                 {
-                    BoardSpace emptyNeighbouringSpace = FindRandomEmptyNeighbouringSpace(boardSpace);
+                    BoardCard emptyNeighbouringSpace = FindRandomEmptyNeighbouringSpace(boardSpace);
                     if (emptyNeighbouringSpace != null)
                         return emptyNeighbouringSpace;
                 }
@@ -75,7 +75,7 @@ namespace FlipFlop.Interface_WPF.AI
 
         }
 
-        private BoardSpace FindRandomEmptyNeighbouringSpace(BoardSpace boardSpace)
+        private BoardCard FindRandomEmptyNeighbouringSpace(BoardCard boardSpace)
         {
             List<Direction> directions = new List<Direction> { Direction.Left, Direction.Right, Direction.Up, Direction.Down };
 
@@ -83,7 +83,7 @@ namespace FlipFlop.Interface_WPF.AI
             {
                 Direction randomDirection = directions[random.Next(directions.Count)];
                 directions.Remove(randomDirection);
-                BoardSpace neighbouringSpace = Board.GetNeighbour(boardSpace, randomDirection);
+                BoardCard neighbouringSpace = Board.GetNeighbour(boardSpace, randomDirection);
                 if (neighbouringSpace != null && neighbouringSpace.Card == null)
                 {
                     return neighbouringSpace;
