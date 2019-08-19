@@ -59,11 +59,11 @@ namespace FlipFlop.Test
             Player player = new Player(deck, 2);
             AIPlayer aiPlayer = new Aziraphale(board, player);
             player.DrawNewHand();
-            PlayerCard highestCard = player.Hand.OrderByDescending(x => x.Card.Value).First();
+            PlayerCardSpace highestCard = player.Hand.OrderByDescending(x => x.Card.Value).First();
 
             //act
 
-            PlayerCard playerCardToPlay = aiPlayer.SelectCardToPlay();
+            PlayerCardSpace playerCardToPlay = aiPlayer.SelectCardToPlay();
             Card cardToPlay = playerCardToPlay.TakeCard();
 
 

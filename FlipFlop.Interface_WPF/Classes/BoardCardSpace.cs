@@ -11,12 +11,12 @@ using System.Windows.Media;
 
 namespace FlipFlop.Interface_WPF.GameClasses
 {
-    public class BoardCard : CardSpaceWPF
+    public class BoardCardSpace : CardSpaceWPF
     {
         public int Owner { get; set; }
         public string Name { get { return CardObject.WPFButton.Name; } }
 
-        public BoardCard(int spaceIndex, MainWindow mainWindow)
+        public BoardCardSpace(int spaceIndex, MainWindow mainWindow)
         {
 
             Index = spaceIndex;
@@ -25,7 +25,7 @@ namespace FlipFlop.Interface_WPF.GameClasses
             CardObject = new WPFCardObject(buttonName, mainWindow, false);
 
         }
-        public BoardCard(int spaceIndex)
+        public BoardCardSpace(int spaceIndex)
         {
             Index = spaceIndex;
         }

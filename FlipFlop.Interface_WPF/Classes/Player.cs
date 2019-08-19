@@ -7,7 +7,7 @@ namespace FlipFlop.Interface_WPF.GameClasses
     public class Player
     {
         public int Id { get;}
-        public List<PlayerCard> Hand { get; private set; } = new List<PlayerCard>();
+        public List<PlayerCardSpace> Hand { get; private set; } = new List<PlayerCardSpace>();
         public Deck Deck { get;}
         public int Score { get; set; }
         public string Name { get; set; }
@@ -32,14 +32,14 @@ namespace FlipFlop.Interface_WPF.GameClasses
         {
             for (int cardIndex = 1; cardIndex <= 5; cardIndex++)
             {
-                Hand.Add(new PlayerCard(Id, cardIndex, mainWindow));
+                Hand.Add(new PlayerCardSpace(Id, cardIndex, mainWindow));
             }
         }
         private void CreateHand()
         {
             for (int cardIndex = 1; cardIndex <= 5; cardIndex++)
             {
-                Hand.Add(new PlayerCard(cardIndex));
+                Hand.Add(new PlayerCardSpace(cardIndex));
             }
         }
 

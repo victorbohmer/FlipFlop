@@ -27,7 +27,7 @@ namespace FlipFlop.Interface_WPF
         {
             ActivePlayer = Players[ActivePlayer.Id == 1 ? 1 : 0];
         }
-        public PlayerCard SelectedCard { get; private set; }
+        public PlayerCardSpace SelectedCard { get; private set; }
 
 
         public GameEngine(MainWindow mainWindow)
@@ -98,7 +98,7 @@ namespace FlipFlop.Interface_WPF
         {
             Board.ResetSpaceColors();
             SelectedCard = AIPlayer.SelectCardToPlay();
-            BoardCard boardSpace = AIPlayer.SelectSpaceToPlayOn(SelectedCard);
+            BoardCardSpace boardSpace = AIPlayer.SelectSpaceToPlayOn(SelectedCard);
 
             PlayCard(boardSpace);
         }
@@ -111,7 +111,7 @@ namespace FlipFlop.Interface_WPF
         public void SelectPlayerCard(string clickedCardName)
         {
             DeselectPlayerCard();
-            PlayerCard clickedCard;
+            PlayerCardSpace clickedCard;
 
             try
             {
@@ -145,14 +145,14 @@ namespace FlipFlop.Interface_WPF
             if (SelectedCard == null || SelectedCard.IsEmpty)
                 return;
 
-            BoardCard boardSpace = Board.GetByName(boardSpaceName);
+            BoardCardSpace boardSpace = Board.GetByName(boardSpaceName);
 
             if (!boardSpace.IsEmpty)
                 return;
 
             PlayCard(boardSpace);
         }
-        private void PlayCard(BoardCard boardSpace)
+        private void PlayCard(BoardCardSpace boardSpace)
         {
             Card playedCard = SelectedCard.TakeCard();
             boardSpace.PlaceCard(playedCard);

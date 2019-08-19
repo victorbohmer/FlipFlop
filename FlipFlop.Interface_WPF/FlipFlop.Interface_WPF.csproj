@@ -61,7 +61,7 @@
     <Compile Include="AI\AIPlayer.cs" />
     <Compile Include="AI\Aziraphale.cs" />
     <Compile Include="Classes\Board.cs" />
-    <Compile Include="Classes\BoardSpace.cs" />
+    <Compile Include="Classes\BoardCardSpace.cs" />
     <Compile Include="Classes\CardSpace.cs" />
     <Compile Include="Classes_WPF\CardSpaceWPF.cs" />
     <Compile Include="Classes_WPF\WPFCardObject.cs" />
@@ -69,7 +69,7 @@
     <Compile Include="RecordKeeping\FileHandler.cs" />
     <Compile Include="RecordKeeping\MatchRecord.cs" />
     <Compile Include="Enums\Direction.cs" />
-    <Compile Include="Classes\PlayerCard.cs" />
+    <Compile Include="Classes\PlayerCardSpace.cs" />
     <Compile Include="Enums\Suit.cs" />
     <Compile Include="SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>

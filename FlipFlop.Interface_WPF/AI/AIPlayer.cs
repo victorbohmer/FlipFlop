@@ -14,9 +14,9 @@ namespace FlipFlop.Interface_WPF.AI
         public string Name { get; protected set; }
         protected readonly Random random = new Random();
 
-        abstract public PlayerCard SelectCardToPlay();
+        abstract public PlayerCardSpace SelectCardToPlay();
 
-        abstract public BoardCard SelectSpaceToPlayOn(PlayerCard selectedCard);
+        abstract public BoardCardSpace SelectSpaceToPlayOn(PlayerCardSpace selectedCard);
 
     }
 }

@@ -11,7 +11,7 @@ namespace FlipFlop.Interface_WPF.GameClasses
     {
         readonly Random random = new Random();
         readonly Deck Deck;
-        public List<BoardCard> Spaces { get; private set; } = new List<BoardCard>();
+        public List<BoardCardSpace> Spaces { get; private set; } = new List<BoardCardSpace>();
         public bool Full { get { return PlayedCardCount == 9; } }
         public int PlayedCardCount { get { return Spaces.Where(x => x.Card != null).Count(); } }
         public Board(Deck deck, MainWindow mainWindow)
@@ -29,14 +29,14 @@ namespace FlipFlop.Interface_WPF.GameClasses
         {
             for (int spaceIndex = 1; spaceIndex <= 9; spaceIndex++)
             {
-                Spaces.Add(new BoardCard(spaceIndex, mainWindow));
+                Spaces.Add(new BoardCardSpace(spaceIndex, mainWindow));
             }
         }
         private void CreateSpaces()
         {
             for (int spaceIndex = 1; spaceIndex <= 9; spaceIndex++)
             {
-                Spaces.Add(new BoardCard(spaceIndex));
+                Spaces.Add(new BoardCardSpace(spaceIndex));
             }
         }
         public void Clear()
@@ -49,19 +49,19 @@ namespace FlipFlop.Interface_WPF.GameClasses
             Spaces.ForEach(x => x.ResetColor());
         }
 
-        public void FlipFlopCard(BoardCard clickedSpace, int activePlayerId)
+        public void FlipFlopCard(BoardCardSpace clickedSpace, int activePlayerId)
         {
             clickedSpace.ChangeOwner(activePlayerId);
             clickedSpace.SetColorFlipped();
             TryToFlipFlopNeighbours(clickedSpace);
         }
 
-        private void TryToFlipFlopNeighbours(BoardCard flippedSpace)
+        private void TryToFlipFlopNeighbours(BoardCardSpace flippedSpace)
         {
 
             foreach (Direction direction in new[] { Direction.Right, Direction.Left, Direction.Up, Direction.Down })
             {
-                BoardCard neighbouringSpace = GetNeighbour(flippedSpace, direction);
+                BoardCardSpace neighbouringSpace = GetNeighbour(flippedSpace, direction);
 
                 if (neighbouringSpace != null)
                     TryToFlipFlopSpace(flippedSpace, neighbouringSpace);
@@ -69,7 +69,7 @@ namespace FlipFlop.Interface_WPF.GameClasses
 
         }
 
-        private void TryToFlipFlopSpace(BoardCard flippedSpace, BoardCard neighbouringSpace)
+        private void TryToFlipFlopSpace(BoardCardSpace flippedSpace, BoardCardSpace neighbouringSpace)
         {
             if (neighbouringSpace.Card != null && 
                 neighbouringSpace.Owner != flippedSpace.Owner &&
@@ -80,18 +80,18 @@ namespace FlipFlop.Interface_WPF.GameClasses
 
         }
 
-        public BoardCard RandomEmptySpace()
+        public BoardCardSpace RandomEmptySpace()
         {
-            List<BoardCard> emptySpaces = Spaces.Where(x => x.Card == null).ToList();
+            List<BoardCardSpace> emptySpaces = Spaces.Where(x => x.Card == null).ToList();
             return emptySpaces[random.Next(emptySpaces.Count)];
         }
 
-        public BoardCard GetByName(string boardSpaceName)
+        public BoardCardSpace GetByName(string boardSpaceName)
         {
             return Spaces.Single(x => x.Name == boardSpaceName);
         }
 
-        public BoardCard GetNeighbour(BoardCard clickedSpace, Direction direction)
+        public BoardCardSpace GetNeighbour(BoardCardSpace clickedSpace, Direction direction)
         {
             switch (direction)
             {
@@ -126,7 +126,7 @@ namespace FlipFlop.Interface_WPF.GameClasses
             int score = CalculateScore();
             for (int i = 0; i < score; i++)
             {
-                List<BoardCard> filledSpaces = Spaces.Where(x => x.Card != null).ToList();
+                List<BoardCardSpace> filledSpaces = Spaces.Where(x => x.Card != null).ToList();
                 filledSpaces[random.Next(filledSpaces.Count)].TakeCard();
             }
         }

@@ -5,11 +5,11 @@ using FlipFlop.Interface_WPF.Enums;
 
 namespace FlipFlop.Interface_WPF.GameClasses
 {
-    public class PlayerCard : CardSpaceWPF
+    public class PlayerCardSpace : CardSpaceWPF
     {
         public string Name { get { return CardObject.WPFButton.Name; } }
 
-        public PlayerCard(int playerId, int cardIndex, MainWindow mainWindow)
+        public PlayerCardSpace(int playerId, int cardIndex, MainWindow mainWindow)
         {
             Index = cardIndex;
 
@@ -17,7 +17,7 @@ namespace FlipFlop.Interface_WPF.GameClasses
             CardObject = new WPFCardObject(buttonName, mainWindow, true);
         }
 
-        public PlayerCard(int cardIndex)
+        public PlayerCardSpace(int cardIndex)
         {
             //Creates player card that's not linked to WPF for use in tests or with other interfaces
             Index = cardIndex;

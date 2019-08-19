@@ -16,9 +16,9 @@ namespace FlipFlop.Interface_WPF.AI
             Name = "Aziraphale (AI)";
         }
 
-        public override PlayerCard SelectCardToPlay()
+        public override PlayerCardSpace SelectCardToPlay()
         {
-            List<PlayerCard> orderedHand = Player.Hand.Where(x => x.Card != null).OrderByDescending(x => x.Card.Value).ToList();
+            List<PlayerCardSpace> orderedHand = Player.Hand.Where(x => x.Card != null).OrderByDescending(x => x.Card.Value).ToList();
 
             //Cards are randomly selected from a set spread depending on how many cards have already been played
             //Example: If playing first the AI will pick a random card most turns, but always play its lowest card second and
@@ -51,10 +51,10 @@ namespace FlipFlop.Interface_WPF.AI
             }
         }
 
-        public override BoardCard SelectSpaceToPlayOn(PlayerCard selectedCard)
+        public override BoardCardSpace SelectSpaceToPlayOn(PlayerCardSpace selectedCard)
         {
             //The AI will always take the highest card it can on the board where possible
-            List<BoardCard> spacesThatCanBeTaken = Board.Spaces.Where(x =>
+            List<BoardCardSpace> spacesThatCanBeTaken = Board.Spaces.Where(x =>
                 x.Card != null &&
                 x.Card.Value < selectedCard.Card.Value &&
                 x.Owner != 2)
@@ -63,9 +63,9 @@ namespace FlipFlop.Interface_WPF.AI
 
             if (spacesThatCanBeTaken != null)
             {
-                foreach (BoardCard boardSpace in spacesThatCanBeTaken)
+                foreach (BoardCardSpace boardSpace in spacesThatCanBeTaken)
                 {
-                    BoardCard emptyNeighbouringSpace = FindRandomEmptyNeighbouringSpace(boardSpace);
+                    BoardCardSpace emptyNeighbouringSpace = FindRandomEmptyNeighbouringSpace(boardSpace);
                     if (emptyNeighbouringSpace != null)
                         return emptyNeighbouringSpace;
                 }
@@ -75,7 +75,7 @@ namespace FlipFlop.Interface_WPF.AI
 
         }
 
-        private BoardCard FindRandomEmptyNeighbouringSpace(BoardCard boardSpace)
+        private BoardCardSpace FindRandomEmptyNeighbouringSpace(BoardCardSpace boardSpace)
         {
             List<Direction> directions = new List<Direction> { Direction.Left, Direction.Right, Direction.Up, Direction.Down };
 
@@ -83,7 +83,7 @@ namespace FlipFlop.Interface_WPF.AI
             {
                 Direction randomDirection = directions[random.Next(directions.Count)];
                 directions.Remove(randomDirection);
-                BoardCard neighbouringSpace = Board.GetNeighbour(boardSpace, randomDirection);
+                BoardCardSpace neighbouringSpace = Board.GetNeighbour(boardSpace, randomDirection);
                 if (neighbouringSpace != null && neighbouringSpace.Card == null)
                 {
                     return neighbouringSpace;
