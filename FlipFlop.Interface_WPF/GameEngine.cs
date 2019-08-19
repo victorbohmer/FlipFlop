@@ -15,8 +15,6 @@ namespace FlipFlop.Interface_WPF
         readonly Board Board;
         readonly FileHandler FileHandler = new FileHandler();
         readonly AIPlayer AIPlayer;
-
-
         public Player ActivePlayer { get; private set; }
         public string ActivePlayerName
         {
@@ -39,6 +37,8 @@ namespace FlipFlop.Interface_WPF
             Board = new Board(Deck, MainWindow);
             AIPlayer = new Aziraphale(Board, Players[1]);
         }
+
+
         internal void SetupFirstGame()
         {
             ActivePlayer = Players[0];
