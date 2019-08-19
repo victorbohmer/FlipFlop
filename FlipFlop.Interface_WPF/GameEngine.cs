@@ -111,14 +111,24 @@ namespace FlipFlop.Interface_WPF
         public void SelectPlayerCard(string clickedCardName)
         {
             DeselectPlayerCard();
+            PlayerCard clickedCard;
 
-            PlayerCard clickedCard = ActivePlayer.Hand.Single(x => x.Name == clickedCardName);
-            if (clickedCard.CanBeSelected())
+            try
             {
-                SelectedCard = clickedCard;
-                SelectedCard.SetColorSelected();
-                Board.ResetSpaceColors();
+                clickedCard = ActivePlayer.Hand.Single(x => x.Name == clickedCardName);
+                if (clickedCard.CanBeSelected())
+                {
+                    SelectedCard = clickedCard;
+                    SelectedCard.SetColorSelected();
+                    Board.ResetSpaceColors();
+                }
             }
+            catch (Exception)
+            {
+                return;
+            }
+
+            
         }
         public void DeselectPlayerCard()
         {

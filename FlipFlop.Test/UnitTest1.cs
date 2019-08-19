@@ -1,3 +1,4 @@
+using FlipFlop.Interface_WPF;
 using FlipFlop.Interface_WPF.Classes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
@@ -21,16 +22,15 @@ namespace FlipFlop.Test
         }
 
         //[TestMethod]
-        //public void TestCreateDeck()
+        //public void TestMainWindow()
         //{
         //    //Arrange
-        //    Deck deck = new Deck();
+        //    MainWindow mainwindow = new MainWindow();
 
         //    //Act
 
         //    //Assert
-        //    Assert.AreEqual(52, deck.CardList.Count);
-        //    Assert.AreEqual(4, deck.CardList.Where(x => x.Value == 13).Count());
+            
         //}
     }
 }
