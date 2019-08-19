@@ -12,22 +12,22 @@ namespace FlipFlop.Interface_WPF.Classes
         static public int GameEndDeckSize { get; private set; } = 30;
         public static string GameLength { get { return GameEndDeckSize == 30 ? "Short" : "Long"; } }
 
-        internal static void AIModeOn()
+        public static void AIModeOn()
         {
             AI = true;
         }
 
-        internal static void AIModeOff()
+        public static void AIModeOff()
         {
             AI = false;
         }
 
-        internal static void GameLengthShort()
+        public static void GameLengthShort()
         {
             GameEndDeckSize = 30;
         }
 
-        internal static void GameLengthLong()
+        public static void GameLengthLong()
         {
             GameEndDeckSize = 10;
         }

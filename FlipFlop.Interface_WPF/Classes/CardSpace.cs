@@ -38,7 +38,15 @@ namespace FlipFlop.Interface_WPF.Classes
             Card returnedCard = Card;
             Card = null;
 
-            UpdateImage();
+            try
+            {
+                UpdateImage();
+            }
+            catch (System.IO.FileNotFoundException)
+            {
+                //Catches failure to update picture when called from project missing PresentationFramework
+                // e.g. test project
+            }
 
             return returnedCard;
         }

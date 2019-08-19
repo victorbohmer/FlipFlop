@@ -31,14 +31,14 @@ namespace FlipFlop.Interface_WPF.Classes
             return CardList[random.Next(CardList.Count)];
         }
 
-        internal Card Draw()
+        public Card Draw()
         {
             Card drawnCard = GetRandomCard();
             CardList.Remove(drawnCard);
             return drawnCard;
         }
 
-        internal void ReturnCard(Card card)
+        public void ReturnCard(Card card)
         {
             CardList.Add(card);
         }

@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace FlipFlop.Interface_WPF.AI
 {
-    abstract class AIPlayer
+    abstract public class AIPlayer
     {
         protected Board Board;
-        protected Player Player;
+        public Player Player;
         public string Name { get; protected set; }
         protected readonly Random random = new Random();
 

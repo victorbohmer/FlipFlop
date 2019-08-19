@@ -25,6 +25,10 @@ namespace FlipFlop.Interface_WPF.Classes
             WPFButton = (Button)MainWindow.FindName(buttonName);
             WPFImage = (Image)MainWindow.FindName(imageName);
         }
+        public BoardSpace(int spaceIndex)
+        {
+            Index = spaceIndex;
+        }
 
         public void ReturnCard(Deck deck)
         {
@@ -35,18 +39,18 @@ namespace FlipFlop.Interface_WPF.Classes
             }
         }
 
-        internal void ChangeOwner(int playerId)
+        public void ChangeOwner(int playerId)
         {
             Owner = playerId;
             WPFButton.RenderTransform = new RotateTransform(playerId == 1 ? 0 : 90);
         }
 
-        internal void ResetColor()
+        public void ResetColor()
         {
             MainWindow.SetBackgroundColor(WPFButton, WPFColor.Grid);
         }
 
-        internal void SetColorFlipped()
+        public void SetColorFlipped()
         {
             MainWindow.SetBackgroundColor(WPFButton, WPFColor.Popup);
         }

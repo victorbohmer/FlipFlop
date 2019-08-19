@@ -23,7 +23,10 @@ namespace FlipFlop.Interface_WPF.Classes
             WPFImage = (Image)MainWindow.FindName(imageName);
             NoCardImage = (ImageSource)MainWindow.FindResource("card back");
         }
-
+        public PlayerCard()
+        {
+            //Creates player card that's not linked to WPF for use in tests or with other interfaces
+        }
         public void DrawNew(Deck deck)
         {
             if (!IsEmpty())
@@ -41,17 +44,17 @@ namespace FlipFlop.Interface_WPF.Classes
             WPFImage.Source = NoCardImage;
         }
 
-        internal bool CanBeSelected()
+        public bool CanBeSelected()
         {
             return WPFImage.Source != NoCardImage;
         }
 
-        internal void SetColorSelected()
+        public void SetColorSelected()
         {
             MainWindow.SetBackgroundColor(WPFButton, WPFColor.GridDark);
         }
 
-        internal void ResetColor()
+        public void ResetColor()
         {
             MainWindow.SetBackgroundColor(WPFButton, WPFColor.BackgroundDark);
         }

@@ -23,7 +23,7 @@ namespace FlipFlop.Interface_WPF
                 return GameMode.AI && ActivePlayer.Id == 2 ? AIPlayer.Name : ActivePlayer.Name;
             }
         }
-        internal void SwitchActivePlayer()
+        public void SwitchActivePlayer()
         {
             ActivePlayer = Players[ActivePlayer.Id == 1 ? 1 : 0];
         }
@@ -39,7 +39,7 @@ namespace FlipFlop.Interface_WPF
         }
 
 
-        internal void SetupFirstGame()
+        public void SetupFirstGame()
         {
             ActivePlayer = Players[0];
             MainWindow.UpdateScoreBox();
@@ -102,7 +102,7 @@ namespace FlipFlop.Interface_WPF
 
             PlayCard(boardSpace);
         }
-        internal void StartRound()
+        public void StartRound()
         {
             ShowHand();
         }
@@ -140,7 +140,7 @@ namespace FlipFlop.Interface_WPF
         }
 
 
-        internal void TryToPlayCard(string boardSpaceName)
+        public void TryToPlayCard(string boardSpaceName)
         {
             if (SelectedCard == null || SelectedCard.IsEmpty())
                 return;
@@ -180,22 +180,22 @@ namespace FlipFlop.Interface_WPF
             ActivePlayer = sortedPlayers.First();
             MainWindow.ShowMatchEndPopup();
         }
-        internal void CleanUpBeforeNewMatch()
+        public void CleanUpBeforeNewMatch()
         {
             Board.Clear();
             Board.ResetSpaceColors();
         }
 
 
-        internal void ShowHand()
+        public void ShowHand()
         {
             ActivePlayer.ShowHand();
         }
-        internal void HideHand()
+        public void HideHand()
         {
             ActivePlayer.HideHand();
         }
-        internal void UpdatePlayerNames(string player1Name, string player2Name)
+        public void UpdatePlayerNames(string player1Name, string player2Name)
         {
             Players[0].Name = player1Name;
             Players[1].Name = player2Name;
@@ -210,7 +210,7 @@ namespace FlipFlop.Interface_WPF
         }
 
 
-        internal string GetFullRecordText()
+        public string GetFullRecordText()
         {
             List<MatchRecord> matchRecords = FileHandler.GetRecordsFromFile();
             return String.Join("\n", matchRecords.Select(x => x.ToString()));

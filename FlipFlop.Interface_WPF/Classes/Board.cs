@@ -7,7 +7,7 @@ using System.Windows.Controls;
 
 namespace FlipFlop.Interface_WPF.Classes
 {
-    class Board
+    public class Board
     {
         readonly Random random = new Random();
         readonly Deck Deck;
@@ -19,6 +19,11 @@ namespace FlipFlop.Interface_WPF.Classes
             Deck = deck;
             CreateSpaces(mainWindow);
         }
+        public Board(Deck deck)
+        {
+            Deck = deck;
+            CreateSpaces();
+        }
 
         private void CreateSpaces(MainWindow mainWindow)
         {
@@ -27,8 +32,14 @@ namespace FlipFlop.Interface_WPF.Classes
                 Spaces.Add(new BoardSpace(spaceIndex, mainWindow));
             }
         }
-
-        internal void Clear()
+        private void CreateSpaces()
+        {
+            for (int spaceIndex = 1; spaceIndex <= 9; spaceIndex++)
+            {
+                Spaces.Add(new BoardSpace(spaceIndex));
+            }
+        }
+        public void Clear()
         {
             Spaces.ForEach(x => x.ReturnCard(Deck));
         }
@@ -69,18 +80,18 @@ namespace FlipFlop.Interface_WPF.Classes
 
         }
 
-        internal BoardSpace RandomEmptySpace()
+        public BoardSpace RandomEmptySpace()
         {
             List<BoardSpace> emptySpaces = Spaces.Where(x => x.Card == null).ToList();
             return emptySpaces[random.Next(emptySpaces.Count)];
         }
 
-        internal BoardSpace GetByName(string boardSpaceName)
+        public BoardSpace GetByName(string boardSpaceName)
         {
             return Spaces.Single(x => x.Name == boardSpaceName);
         }
 
-        internal BoardSpace GetNeighbour(BoardSpace clickedSpace, Direction direction)
+        public BoardSpace GetNeighbour(BoardSpace clickedSpace, Direction direction)
         {
             switch (direction)
             {
@@ -110,7 +121,7 @@ namespace FlipFlop.Interface_WPF.Classes
             return null;
         }
 
-        internal void Discard()
+        public void Discard()
         {
             int score = CalculateScore();
             for (int i = 0; i < score; i++)
@@ -120,7 +131,7 @@ namespace FlipFlop.Interface_WPF.Classes
             }
         }
 
-        internal int Winner()
+        public int Winner()
         {
             return Spaces.Where(x => x.Owner == 1).Count() > 4 ? 0 : 1;
         }
@@ -129,7 +140,7 @@ namespace FlipFlop.Interface_WPF.Classes
         {
             return Spaces.Where(x => x.Owner == Winner() + 1).Count();
         }
-        internal int AddPlayerScore(List<Player> players)
+        public int AddPlayerScore(List<Player> players)
         {
             int score = CalculateScore(); 
             players[Winner()].Score += score;

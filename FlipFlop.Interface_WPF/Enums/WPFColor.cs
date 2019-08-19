@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlipFlop.Interface_WPF.Enums
 {
-    enum WPFColor
+    public enum WPFColor
     {
         Background,
         BackgroundDark,

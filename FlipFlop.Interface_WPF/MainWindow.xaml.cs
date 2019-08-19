@@ -131,28 +131,28 @@ namespace FlipFlop.Interface_WPF
         }
 
 
-        internal void ShowNextRoundPopup()
+        public void ShowNextRoundPopup()
         {
             NextRoundPopupText.Content = $"{GE.ActivePlayer.Name}'s turn!";
 
             NextRoundPopup.VerticalOffset = GE.ActivePlayer.Id == 1 ? -236 : 236;
             NextRoundPopup.IsOpen = true;
         }
-        internal void ShowNewGamePopup(int score)
+        public void ShowNewGamePopup(int score)
         {
             NewGamePopupText.Text = $"{GE.ActivePlayerName} controlled {(score + 9) / 2} spaces and got {score} {(score == 1 ? "point" : "points")}!";
 
             NewGamePopup.IsOpen = true;
             NewGamePopup.VerticalOffset = GE.ActivePlayer.Id == 1 ? -236 : 236;
         }
-        internal void ShowMatchEndPopup()
+        public void ShowMatchEndPopup()
         {
             MatchEndPopupText.Text = $"{GE.ActivePlayerName} won with {GE.ActivePlayer.Score} points!";
             MatchEndPopup.IsOpen = true;
         }
 
 
-        internal void UpdateNameBox(int playerId, string playerName)
+        public void UpdateNameBox(int playerId, string playerName)
         {
             TextBlock nameBox = (TextBlock)FindName($"Player_{playerId}_Name");
             nameBox.Text = playerName;
@@ -162,11 +162,11 @@ namespace FlipFlop.Interface_WPF
             TextBlock scoreBox = (TextBlock)FindName($"Player_{GE.ActivePlayer.Id}_Score");
             scoreBox.Text = GE.ActivePlayer.Score.ToString();
         }
-        internal void UpdateDeckSize(int count)
+        public void UpdateDeckSize(int count)
         {
             Deck_Size.Text = count.ToString();
         }
-        internal void SetBackgroundColor(Button button, WPFColor color)
+        public void SetBackgroundColor(Button button, WPFColor color)
         {
             button.Background = (SolidColorBrush)FindResource(color.ToString());
         }

@@ -17,7 +17,7 @@ namespace FlipFlop.Interface_WPF.RecordKeeping
             folderPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\FlipFlop";
             filePath = folderPath + @"\records.json";
         }
-        internal void SaveMatchRecord(MatchRecord record)
+        public void SaveMatchRecord(MatchRecord record)
         {
             List<MatchRecord> recordList = GetRecordsFromFile();
             recordList.Add(record);

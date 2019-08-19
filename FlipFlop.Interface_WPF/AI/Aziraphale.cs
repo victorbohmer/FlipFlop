@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FlipFlop.Interface_WPF.AI
 {
-    class Aziraphale : AIPlayer
+    public class Aziraphale : AIPlayer
     {
         public Aziraphale(Board board, Player player)
         {

@@ -9,14 +9,22 @@ namespace FlipFlop.Interface_WPF.Classes
         public int Id { get;}
         public List<PlayerCard> Hand { get; private set; } = new List<PlayerCard>();
         public Deck Deck { get;}
-        public int Score { get; internal set; }
-        public string Name { get; internal set; }
+        public int Score { get; set; }
+        public string Name { get; set; }
 
         public Player(Deck deck, MainWindow mainWindow, int id)
         {
             Deck = deck;
             Id = id;
             CreateHand(mainWindow);
+            Name = $"Player {id}";
+        }
+        public Player(Deck deck, int id)
+        {
+            //Creates player that's not linked to WPF for use in tests or with other interfaces
+            Deck = deck;
+            Id = id;
+            CreateHand();
             Name = $"Player {id}";
         }
 
@@ -27,18 +35,25 @@ namespace FlipFlop.Interface_WPF.Classes
                 Hand.Add(new PlayerCard(Id, cardIndex, mainWindow));
             }
         }
+        private void CreateHand()
+        {
+            for (int cardIndex = 1; cardIndex <= 5; cardIndex++)
+            {
+                Hand.Add(new PlayerCard());
+            }
+        }
 
-        internal void DrawNewHand()
+        public void DrawNewHand()
         {
             Hand.ForEach(x => x.DrawNew(Deck));
         }
 
-        internal void ShowHand()
+        public void ShowHand()
         {
             Hand.ForEach(x => x.ShowCard());
         }
 
-        internal void HideHand()
+        public void HideHand()
         {
             Hand.ForEach(x => x.HideCard());
         }
