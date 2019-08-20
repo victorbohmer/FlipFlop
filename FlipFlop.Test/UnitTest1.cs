@@ -63,8 +63,8 @@ namespace FlipFlop.Test
 
             //act
 
-            PlayerCardSpace playerCardToPlay = aiPlayer.SelectCardToPlay();
-            Card cardToPlay = playerCardToPlay.TakeCard();
+            PlayerCardSpace cardSpaceToPlayFrom = aiPlayer.SelectCardToPlay();
+            Card cardToPlay = cardSpaceToPlayFrom.TakeCard();
 
 
             //assert
